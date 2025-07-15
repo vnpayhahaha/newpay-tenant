@@ -1,0 +1,119 @@
+import type { ResponseStruct } from '#/global'
+
+export interface CollectionOrderVo {
+  //
+  id: number
+  // 平台订单号
+  platform_order_no: string
+  // 下游订单号
+  merchant_order_no: string
+  // 上游订单号
+  upstream_order_no: string
+  // 订单金额
+  amount: string
+  // 订单应付金额
+  payable_amount: string
+  // 订单实付金额
+  paid_amount: string
+  // 固定手续费
+  fixed_fee: string
+  // 费率手续费
+  rate_fee: string
+  // 总手续费
+  total_fee: string
+  // 上游手续费
+  upstream_fee: string
+  // 上游结算金额
+  upstream_settlement_amount: string
+  // 租户入账金额
+  settlement_amount: string
+  // 入账结算类型:0-未入账 1-实付金额 2-订单金额
+  settlement_type: string
+  // 收款类型:1-银行卡 2-UPI 3-第三方支付
+  collection_type: string
+  // 收款渠道ID
+  collection_channel_id: number
+  // 支付时间
+  pay_time: string
+  // 订单失效时间
+  expire_time: string
+  // 订单来源:APP-API 管理后台 导入
+  order_source: string
+  // 核销类型:
+  // 0-未核销
+  // 1-自动核销
+  // 2-人工核销
+  // 3-接口核销
+  // 4-机器人核销
+  recon_type: string
+  // 回调地址
+  callback_url: string
+  // 回调次数
+  callback_count: number
+  // 通知状态:0-未通知 1-通知成功 2-通知失败 3-回调中
+  notify_status: string
+  // 收银台地址
+  checkout_url: string
+  // 支付成功后跳转地址
+  return_url: string
+  // 租户编号
+  tenant_id: string
+  // 应用ID
+  app_id: number
+  // 付款方名称
+  payer_name: string
+  // 付款账号
+  payer_account: string
+  // 付款方银行
+  payer_bank: string
+  // 付款方IFSC代码
+  payer_ifsc: string
+  // 付款方UPI账号
+  payer_upi: string
+  // 订单描述
+  description: string
+  // 订单状态:
+  // 0-创建 10-处理中 20-成功 30-挂起 40-失败
+  // 41-已取消 43-已失效 44-已退款
+  status: string
+  // 渠道交易号
+  channel_transaction_no: string
+  // 错误代码
+  error_code: string
+  // 错误信息
+  error_message: string
+  // 关联API请求ID
+  request_id: string
+  // 创建时间
+  created_at: string
+  // 更新时间
+  updated_at: string
+  // 支付凭证照片
+  payment_proof_photo: string
+  // 平台交易流水号
+  platform_transaction_no: string
+  // Unique Transaction Reference
+  utr: string
+  // 客户提交的UTR
+  customer_submitted_utr: string
+}
+
+// 收款订单查询
+export function page(params: CollectionOrderVo): Promise<ResponseStruct<CollectionOrderVo[]>> {
+  return useHttp().get('/tenant/transaction/collection_order/list', { params })
+}
+
+// 收款订单新增
+export function create(data: CollectionOrderVo): Promise<ResponseStruct<null>> {
+  return useHttp().post('/tenant/transaction/collection_order', data)
+}
+
+// 收款订单编辑
+export function save(id: number, data: CollectionOrderVo): Promise<ResponseStruct<null>> {
+  return useHttp().put(`/tenant/transaction/collection_order/${id}`, data)
+}
+
+// 收款订单删除
+export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
+  return useHttp().delete('/tenant/transaction/collection_order', { data: ids })
+}

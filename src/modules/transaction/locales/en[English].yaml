@@ -1,0 +1,145 @@
+transaction:
+  index: Transaction Management
+transaction_record:
+  index: Transaction Record
+  transaction_no: transaction no
+  tenant_account_id: tenant account id
+  account_id: account id
+  tenant_id:  tenant id
+  amount: amount
+  fee_amount: fee amount
+  net_amount: net amount
+  account_type: account type
+  transaction_type: transaction type
+  settlement_delay_mode: settlement delay mode
+  expected_settlement_time: expected settlement time
+  settlement_delay_days: settlement delay days
+  holiday_adjustment: holiday adjustment
+  actual_settlement_time: actual settlement time
+  counterparty: counterparty
+  order_no: order no
+  ref_transaction_no: ref transaction no
+  transaction_status: transaction status
+  failed_msg: failed msg
+  remark: remark
+  created_at: create time
+  updated_at: update time
+transaction_queue_status:
+  index: Transaction Queue
+  transaction_no: transaction no
+  transaction_type: transaction type
+  process_status: process status
+  scheduled_execute_time: scheduled execute time
+  next_retry_time: next retry time
+  retry_count: retry count
+  lock_version: optimistic lock
+  error_code: error code
+  error_detail: error detail
+  created_at: create time
+  updated_at: update time
+collection_order:
+  index: Collection Order
+  all: All
+  platform_order_no: Platform Order No
+  merchant_order_no: Merchant Order No
+  upstream_order_no: Upstream Order No
+  amount: Amount
+  payable_amount: Payable Amount
+  paid_amount: Paid Amount
+  fixed_fee: Fixed Fee
+  rate_fee: Rate Fee
+  total_fee: Total Fee
+  upstream_fee: Upstream Fee
+  upstream_settlement_amount: Upstream Settlement Amount
+  settlement_amount: Settlement Amount
+  settlement_type: Settlement Type
+  collection_type: Collection Type
+  collection_channel_id: Collection Channel Id
+  pay_time: Pay Time
+  expire_time: Expire Time
+  order_source: Order Source
+  recon_type: Recon Type
+  callback_url: Callback Url
+  callback_count: Callback Count
+  notify_status: Notify Status
+  checkout_url: Checkout Url
+  return_url:  Return Url
+  tenant_id: Tenant Id
+  app_id: App Id
+  payer_name: Payment Name
+  payer_account: Payment Account
+  payer_bank: Payment Bank
+  payer_ifsc: Payment IFSC
+  payer_upi: Payment UPI
+  description: Description
+  status: Status
+  channel_transaction_no: Channel Transaction No
+  error_code: Error Code
+  error_message: Error Message
+  request_id: Request Id
+  created_at: Created At
+  updated_at: Updated At
+  payment_proof_photo: Payment Proof Photo
+  platform_transaction_no: Platform Transaction No
+  utr: UTR
+  customer_submitted_utr: Customer Submitted UTR
+disbursement_order:
+  index: Payment Order
+  all: All
+  platform_order_no: Platform Order No
+  merchant_order_no: Merchant Order No
+  upstream_order_no: Upstream Order No
+  pay_time: Pay Time
+  order_source: Order Source
+  disbursement_channel_id: Disbursement Channel Id
+  disbursement_bank_id: Disbursement Bank Id
+  amount: Amount
+  paid_amount: Paid Amount
+  fixed_fee: Fixed Fee
+  rate_fee: Rate Fee
+  total_fee: Total Fee
+  settlement_amount: Settlement Amount
+  upstream_fee: Upstream Fee
+  upstream_settlement_amount: Upstream Settlement Amount
+  payment_type: Payment Type
+  payee_bank_name: Payee Bank Name
+  payee_bank_code: Payee Bank Code
+  payee_account_name: Payee Account Name
+  payee_account_no: Payee Account No
+  payee_upi: Payee UPI
+  utr: UTR
+  tenant_id: Tenant Id
+  app_id: App Id
+  description: Description
+  status: Status
+  expire_time: Expire Time
+  callback_url: Callback Url
+  callback_count: Callback Count
+  notify_status: Notify Status
+  channel_transaction_no: Channel Transaction No
+  error_code: Error Code
+  error_message: Error Message
+  request_id: Request Id
+  created_at: Create time
+  updated_at: Update time
+menu:
+  transaction_record:
+    list: Transaction Record List
+    create: Create Transaction Record
+    update: Update Transaction Record
+    delete: Delete Transaction Record
+  transaction_queue_status:
+    list: Transaction Queue List
+    create: Create Transaction Queue
+    update: Update Transaction Queue
+    delete: Delete Transaction Queue
+  collection_order:
+    list: Collection Order List
+    create: Collection Order Create
+    update: Collection Order Update
+    delete: Collection Order Delete
+  disbursement_order:
+    list: Disbursement Order List
+    create: Disbursement Order Create
+    update: Disbursement Order Update
+    delete: Disbursement Order Delete

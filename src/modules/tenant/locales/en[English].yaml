@@ -1,0 +1,164 @@
+tenant:
+  index: Tenant Management
+  tenantId: Tenant ID
+  contactUserName: Contact User Name
+  contactPhone: Contact Phone
+  companyName: Company Name
+  user_num_limit: Maximum number of users
+  app_num_limit: Maximum number of applications
+  isEnabled: Is Enabled
+  createdBy: createdBy
+  safeLevel: Safe Level
+  licenseNumber: License Number
+  address: address
+  intro: intro
+  domain: domain
+  settlement_type: settlement type
+  settlement_delay_days: settlement delay days
+  auto_transfer: auto transfer
+  receipt_fee_type: receipt fee type
+  receipt_fixed_fee: receipt fixed fee
+  receipt_fee_rate: receipt fee rate
+  payment_fee_type: payment fee type
+  payment_fixed_fee: payment fixed fee
+  payment_fee_rate: payment fee rate
+  limitHint: -1 represents unlimited
+  unlimited: Unlimited
+tenantApp:
+  index: Tenant App
+  appName: APP Name
+  appKey: APP Key
+  appSecret: APP Secret
+  status: status
+  description: description
+  remark: remark
+  createdAt: created time
+  remarkPlaceholder: Please enter the remark
+  refreshAppKey: Refresh application key(Key)
+  refreshAppSecret: Refresh application secret(Secret)
+tenantUser:
+  index: Tenant members
+  avatar: Avatar
+  username: Username
+  phone: Phone Number
+  password: password
+  last_login_ip: Last Login IP
+  last_login_time: Last Login Time
+  status: status
+  is_enabled_google: Is Google authentication enabled
+  google_secret: Google verification key
+  is_bind_google: Is it bound to Google verification
+  created_by: created by
+  created_at: created time
+  updated_by: modified by
+  updated_at: modified time
+  deleted_by: deleted by
+  deleted_at: deleted time
+  ip_whitelist: IP whitelist
+  remark: Remark
+tenantConfig:
+  index: Tenant Config
+  groupCode: Group Code
+  code: Code
+  name: Name
+  content: Content
+  enabled: Enabled
+  intro: Intro
+  option: Options
+tenantAccount:
+  index: Tenant Account
+  account_id: Account ID
+  balance_available: balance available
+  balance_frozen: balance frozen
+  account_type: account type
+  version: version
+  created_at: created_at
+  updated_at: updated_at
+  add: Bonus points
+  sub: Minus points
+  freeze: Freeze
+  unfreeze: UnFreeze
+  addSuccess: Bonus points success
+  subSuccess: Minus points success
+  freezeSuccess: Freeze success
+  unfreezeSuccess: UnFreeze success
+tenantAccountRecord:
+  index: All Billing records
+  tenantAccountBillRecord: Billing records
+  tenant_id: Tenant ID
+  tenant_account_id: Associate tenant account ID
+  account_id: Account ID
+  account_type: Account Type
+  change_amount: Change amount
+  balance_available_before: Available balance (original)
+  balance_available_after: Available balance (new)
+  balance_frozen_before: Freeze balance (original)
+  balance_frozen_after: Freeze balance (new)
+  change_type: Change type
+  transaction_no: Transaction number
+  created_at: Trading Hours
+tenantMenu:
+  tenant:
+    list: Tenant list
+    create: Tenant create
+    update: Tenant updated
+    delete: Tenant delete
+    recovery: Tenant recovery
+    realDelete: Empty recycle Bin
+  tenantApp:
+    list: Tenant Application List
+    create: Add tenant application
+    update: Modify tenant application
+    delete: Delete tenant application
+    recovery: Tenant APP recovery
+    realDelete: Empty recycle Bin
+  tenantUser:
+    list: Tenant member list
+    create: Add new tenant members
+    update: Modify member information
+    delete: Delete tenant members
+    recovery: Tenant User recovery
+    realDelete: Empty recycle Bin
+  tenantConfig:
+    list: Tenant Config List
+    create: Add Tenant Config
+    update: Modify Tenant Config
+    delete: Delete Tenant Config
+  tenant_account:
+    list: Tenant Account List
+    create: Add Tenant Account
+    update: Modify Tenant Account
+    delete: Delete Tenant Account
+    change_balance_available: Change Balance Available
+    change_balance_frozen: Change Balance Frozen
+  tenant_account_record:
+    list: Billing records
+    create: Add Billing record
+    update: Modify Billing record
+    delete: Delete Billing record
+enums:
+  tenant:
+    isEnabled:
+      true: Enable
+      false: Disable
+  tenantApp:
+    status:
+      normal: normal
+      disabled: disabled
+  tenantAccount:
+    account_type:
+      collection: Collection
+      payment: Payment
+  tenantAccountRecord:
+    change_type:
+      transaction: transaction
+      refund: refund
+      manual_add: manual_add
+      manual_sub: manual_sub
+      freeze: freeze
+      unfreeze: unfreeze
+      transfer_in: transfer_in
+      transfer_out: transfer_out
+      reverse: reverse
+      reversal: reversal
+      error_adjust: error_adjust

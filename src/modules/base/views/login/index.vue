@@ -21,7 +21,7 @@ import CopyRight from './components/copyright.vue'
 <template>
   <div class="h-full min-w-[380px] w-full flex items-center justify-center overflow-hidden border-1 bg-blue-950 lg:justify-between lg:bg-white">
     <div class="relative hidden h-full w-10/12 md:hidden lg:flex">
-      <div class="gradient-rainbow" />
+      <div class="gradient-rainbow bg-image" />
       <Dashed />
       <Light />
       <Slogan />
@@ -33,9 +33,15 @@ import CopyRight from './components/copyright.vue'
       <CopyRight />
     </div>
     <!-- 下面兼容移动端的 -->
-    <div class="min-[380px] relative left-0 top-0 z-4 h-full max-w-[1024px] w-full flex lg:hidden">
+    <div class="min-[380px] bg-image relative left-0 top-0 z-4 h-full max-w-[1024px] w-full flex lg:hidden">
       <Dashed />
       <Light />
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.bg-image {
+  background-image: url('@/assets/images/login.jpg')
+}
+</style>

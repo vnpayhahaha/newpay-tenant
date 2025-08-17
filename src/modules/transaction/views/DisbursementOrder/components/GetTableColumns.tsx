@@ -381,6 +381,16 @@ export default function getTableColumns(
                   />
                 </p>
               )}
+              {row.cancel_customer?.id && (
+                <p>
+                  client end:
+                  {' '}
+                  <MaCopy
+                    content={row.cancel_customer?.username}
+                    class="color-blue"
+                  />
+                </p>
+              )}
             </div>
           </div>
         )
@@ -416,6 +426,13 @@ export default function getTableColumns(
             <div style={{ flex: 1, minWidth: 0 }}>
               <p>
                 <MaCopy content={row.order_source} />
+                {row.created_customer?.username && (
+                  <>
+                    [
+                    {row.created_customer.username}
+                    ]
+                  </>
+                )}
               </p>
               <p>
                 <MaCopy content={row.tenant_id} />

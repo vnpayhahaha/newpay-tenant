@@ -462,11 +462,20 @@ export default function getTableColumns(
               <p>{row.cancelled_at}</p>
               {row.cancel_operator?.id && (
                 <p>
-                  {row.cancel_operator?.nickname}
-                  :
+                  platform end:
                   {' '}
                   <MaCopy
-                    content={row.cancel_operator?.username}
+                    content={row.cancel_operator?.nickname || row.cancel_operator?.username}
+                    class="color-blue"
+                  />
+                </p>
+              )}
+              {row.cancel_customer?.id && (
+                <p>
+                  client end:
+                  {' '}
+                  <MaCopy
+                    content={row.cancel_customer?.username}
                     class="color-blue"
                   />
                 </p>
@@ -501,7 +510,7 @@ export default function getTableColumns(
     {
       label: () => t('collection_order.order_source'),
       prop: 'order_source',
-      width: '180px',
+      minWidth: '220px',
       cellRender: ({ row }) => {
         return (
           <div
@@ -514,6 +523,13 @@ export default function getTableColumns(
               </p>
               <p>
                 <MaCopy content={row.order_source} />
+                {row.created_customer?.username && (
+                  <>
+                    [
+                    {row.created_customer.username}
+                    ]
+                  </>
+                )}
               </p>
               <p>
                 <MaCopy content={row.tenant_id} />

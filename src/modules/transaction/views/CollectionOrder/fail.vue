@@ -120,7 +120,6 @@ const schema = ref<MaProTableSchema>({
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
       <template #actions>
         <el-button
-          v-auth="['tenant:tenant:save']"
           type="primary"
           @click="() => {
             maDialog.setTitle(t('crud.add'))
@@ -137,7 +136,6 @@ const schema = ref<MaProTableSchema>({
       <template #empty>
         <el-empty>
           <el-button
-            v-auth="['tenant:tenant:save']"
             type="primary"
             @click="() => {
               maDialog.setTitle(t('crud.add'))

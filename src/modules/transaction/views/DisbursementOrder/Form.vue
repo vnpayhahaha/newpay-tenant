@@ -9,14 +9,14 @@
 -->
 <script setup lang="ts">
 import type { DisbursementOrderVo } from '~/transaction/api/DisbursementOrder.ts'
-import { create, save } from '~/transaction/api/DisbursementOrder.ts'
+import { create } from '~/transaction/api/DisbursementOrder.ts'
 import getFormItems from './components/GetFormItems.tsx'
 import type { MaFormExpose } from '@mineadmin/form'
 import useForm from '@/hooks/useForm.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 
 const { formType = 'add', data = null } = defineProps<{
-  formType: 'add' | 'edit'
+  formType?: 'add' | 'edit'
   data?: DisbursementOrderVo | null
 }>()
 
@@ -47,20 +47,8 @@ function add(): Promise<any> {
   })
 }
 
-// 更新操作
-function edit(): Promise<any> {
-  return new Promise((resolve, reject) => {
-    save(formModel.value.id as number, formModel.value).then((res: any) => {
-      res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)
-    }).catch((err) => {
-      reject(err)
-    })
-  })
-}
-
 defineExpose({
   add,
-  edit,
   maForm: maFormRef,
 })
 </script>

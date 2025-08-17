@@ -10,7 +10,6 @@
 import type { MaFormItem } from '@mineadmin/form'
 import type { CollectionOrderVo } from '~/transaction/api/CollectionOrder.ts'
 import useUserStore from '@/store/modules/useUserStore.ts'
-import { min } from 'lodash-es'
 
 const userStore = useUserStore()
 export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, model: CollectionOrderVo): MaFormItem[] {

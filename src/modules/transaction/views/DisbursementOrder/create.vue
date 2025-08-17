@@ -13,7 +13,7 @@ import type { Ref } from 'vue'
 import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
-import { cancel, page } from '~/transaction/api/CollectionOrder.ts'
+import { cancel, page } from '~/transaction/api/DisbursementOrder.ts'
 import getSearchItems from './components/GetSearchItems.tsx'
 import getTableColumns from './components/GetTableColumns.tsx'
 import useDialog from '@/hooks/useDialog.ts'
@@ -22,7 +22,7 @@ import { ResultCode } from '@/utils/ResultCode.ts'
 
 import Form from './Form.vue'
 
-defineOptions({ name: 'transaction:collection_order' })
+defineOptions({ name: 'transaction:disbursement_order' })
 
 const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
 const formRef = ref()
@@ -69,13 +69,24 @@ const maDialog: UseDialogExpose = useDialog({
     okLoadingState(false)
   },
 })
-
+const responseTableData = ref<Record<string, any>>({
+  list: [],
+  total: 0,
+})
 // 参数配置
 const options = ref<MaProTableOptions>({
   // 表格距离底部的像素偏移适配
   adaptionOffsetBottom: 161,
   header: {
-    mainTitle: () => t('collection_order.index'),
+    mainTitle: () => t('disbursement_order.index'),
+    subTitle: () => {
+      return (
+        `| ${
+          t('disbursement_order.query_total')
+        }: ${
+          responseTableData.value.total}`
+      )
+    },
   },
   // 表格参数
   tableOptions: {
@@ -102,7 +113,11 @@ const options = ref<MaProTableOptions>({
     requestParams: {
       orderBy: 'id',
       orderType: 'desc',
-      status: 30,
+      status: 0,
+    },
+    responseDataHandler: (response: Record<string, any>) => {
+      responseTableData.value = response
+      return response.list
     },
   },
 })
@@ -111,8 +126,20 @@ const schema = ref<MaProTableSchema>({
   // 搜索项
   searchItems: getSearchItems(t, true),
   // 表格列
-  tableColumns: getTableColumns(maDialog, formRef, t),
+  tableColumns: getTableColumns(t),
 })
+
+// 批量取消
+function handleCancel() {
+  const ids = selections.value.map((item: any) => item.id)
+  msg.confirm(t('crud.cancelMessage')).then(async () => {
+    const response = await cancel(ids)
+    if (response.code === ResultCode.SUCCESS) {
+      msg.success(t('crud.cancelSuccess'))
+      proTableRef.value.refresh()
+    }
+  })
+}
 </script>
 
 <template>
@@ -130,6 +157,15 @@ const schema = ref<MaProTableSchema>({
         </el-button>
       </template>
       <template #toolbarLeft>
+        <el-button
+          v-auth="['transaction:transaction_voucher:update']"
+          type="danger"
+          plain
+          :disabled="selections.length < 1"
+          @click="handleCancel"
+        >
+          {{ t("crud.cancel") }}
+        </el-button>
         <NmSearch :proxy="proTableRef" :row="2" />
       </template>
       <!-- 数据为空时 -->

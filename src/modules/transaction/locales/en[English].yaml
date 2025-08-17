@@ -148,7 +148,8 @@ disbursement_order:
   upstream_fee: Upstream Fee
   upstream_settlement_amount: Upstream Settlement Amount
   payment_type: Payment Type
-  payee_bank_name: Payee Bank Name
+  payee_bank_name: Payee Bank Username
+  payee_phone: Payee Phone
   payee_bank_code: Payee Bank Code
   payee_account_name: Payee Account Name
   payee_account_no: Payee Account No

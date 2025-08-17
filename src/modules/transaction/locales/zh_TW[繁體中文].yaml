@@ -149,6 +149,7 @@ disbursement_order:
   upstream_settlement_amount: 上游结算金额
   payment_type: 付款方式
   payee_bank_name: 收款银行名称
+  payee_phone: 收款人手机号
   payee_bank_code: 收款银行编号
   payee_account_name: 收款账户名称
   payee_account_no: 收款账号

@@ -3,6 +3,7 @@ loginForm:
   passwordPlaceholder: 请输入密码
   codeLabel: 验证码
   usernameLabel: 账户
+  tenantIdLabel: 租户ID
   codePlaceholder: 请输入验证码
   usernamePlaceholder: 请输入账户
   passwordLabel: 密码

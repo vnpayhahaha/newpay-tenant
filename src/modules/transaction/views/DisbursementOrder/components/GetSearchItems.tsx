@@ -9,9 +9,16 @@
  */
 
 import type { MaSearchItem } from '@mineadmin/search'
+import { selectStatus } from '@/modules/Common'
+import type { ChannelDictVo } from '~/channel/api/Channel.ts'
+import { remote } from '~/channel/api/Channel.ts'
 
-export default function getSearchItems(t: any): MaSearchItem[] {
-  return [
+export default function getSearchItems(
+  t: any,
+  hideStatus: boolean = false,
+  isChannelTypeBank: boolean = false,
+): MaSearchItem[] {
+  const searchItems: MaSearchItem[] = [
     {
       label: () => t('disbursement_order.platform_order_no'),
       prop: 'platform_order_no',
@@ -21,11 +28,11 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       },
     },
     {
-      label: () => t('disbursement_order.merchant_order_no'),
-      prop: 'merchant_order_no',
+      label: () => t('disbursement_order.tenant_order_no'),
+      prop: 'tenant_order_no',
       render: () => <el-input />,
       renderProps: {
-        placeholder: t('disbursement_order.merchant_order_no'),
+        placeholder: t('disbursement_order.tenant_order_no'),
       },
     },
     {
@@ -34,14 +41,54 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       render: () => <el-input />,
       renderProps: {
         placeholder: t('disbursement_order.upstream_order_no'),
+        disabled: isChannelTypeBank,
+      },
+    },
+    {
+      label: () => t('disbursement_order.app_id'),
+      prop: 'app_id',
+      render: () => <el-input />,
+      renderProps: {
+        placeholder: t('disbursement_order.app_id'),
+      },
+    },
+    {
+      label: () => t('disbursement_order.created_at'),
+      prop: 'created_at',
+      render: () => <el-date-picker />,
+      renderProps: {
+        type: 'datetimerange',
+        rangeSeparator: '~',
+        startPlaceholder: t('common.startTime'),
+        endPlaceholder: t('common.endTime'),
+        valueFormat: 'YYYY-MM-DD HH:mm:ss',
+        name: [t('disbursement_order.created_at')],
       },
     },
     {
       label: () => t('disbursement_order.pay_time'),
       prop: 'pay_time',
-      render: () => <el-input />,
+      render: () => <el-date-picker />,
       renderProps: {
-        placeholder: t('disbursement_order.pay_time'),
+        type: 'datetimerange',
+        rangeSeparator: '~',
+        startPlaceholder: t('common.startTime'),
+        endPlaceholder: t('common.endTime'),
+        valueFormat: 'YYYY-MM-DD HH:mm:ss',
+        name: [t('disbursement_order.pay_time')],
+      },
+    },
+    {
+      label: () => t('disbursement_order.expire_time'),
+      prop: 'expire_time',
+      render: () => <el-date-picker />,
+      renderProps: {
+        type: 'datetimerange',
+        rangeSeparator: '~',
+        startPlaceholder: t('common.startTime'),
+        endPlaceholder: t('common.endTime'),
+        valueFormat: 'YYYY-MM-DD HH:mm:ss',
+        name: [t('disbursement_order.expire_time')],
       },
     },
     {
@@ -53,27 +100,37 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       },
     },
     {
-      label: () => t('disbursement_order.disbursement_channel_id'),
-      prop: 'disbursement_channel_id',
-      render: () => <el-input />,
-      renderProps: {
-        placeholder: t('disbursement_order.disbursement_channel_id'),
-      },
-    },
-    {
-      label: () => t('disbursement_order.disbursement_bank_id'),
-      prop: 'disbursement_bank_id',
-      render: () => <el-input />,
-      renderProps: {
-        placeholder: t('disbursement_order.disbursement_bank_id'),
-      },
-    },
-    {
       label: () => t('disbursement_order.payment_type'),
       prop: 'payment_type',
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
       renderProps: {
+        api: () =>
+          new Promise(resolve =>
+            resolve(selectStatus('disbursement_order', 'payment_type_list')),
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
         placeholder: t('disbursement_order.payment_type'),
+      },
+    },
+    {
+      label: () => t('disbursement_order.notify_status'),
+      prop: 'notify_status',
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () =>
+          new Promise(resolve =>
+            resolve(selectStatus('disbursement_order', 'notify_status_list')),
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+        placeholder: t('disbursement_order.notify_status'),
       },
     },
     {
@@ -125,43 +182,11 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       },
     },
     {
-      label: () => t('disbursement_order.tenant_id'),
-      prop: 'tenant_id',
-      render: () => <el-input />,
-      renderProps: {
-        placeholder: t('disbursement_order.tenant_id'),
-      },
-    },
-    {
-      label: () => t('disbursement_order.app_id'),
-      prop: 'app_id',
-      render: () => <el-input />,
-      renderProps: {
-        placeholder: t('disbursement_order.app_id'),
-      },
-    },
-    {
-      label: () => t('disbursement_order.status'),
-      prop: 'status',
-      render: () => <el-input />,
-      renderProps: {
-        placeholder: t('disbursement_order.status'),
-      },
-    },
-    {
       label: () => t('disbursement_order.expire_time'),
       prop: 'expire_time',
       render: () => <el-input />,
       renderProps: {
         placeholder: t('disbursement_order.expire_time'),
-      },
-    },
-    {
-      label: () => t('disbursement_order.notify_status'),
-      prop: 'notify_status',
-      render: () => <el-input />,
-      renderProps: {
-        placeholder: t('disbursement_order.notify_status'),
       },
     },
     {
@@ -181,4 +206,41 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       },
     },
   ]
+  if (!hideStatus) {
+    searchItems.push({
+      label: () => t('disbursement_order.status'),
+      prop: 'status',
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () =>
+          new Promise(resolve =>
+            resolve(selectStatus('disbursement_order', 'status_list')),
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
+    })
+  }
+  if (!isChannelTypeBank) {
+    searchItems.push({
+      label: () => t('disbursement_order.channel_type'),
+      prop: 'channel_type',
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () =>
+          new Promise(resolve =>
+            resolve(selectStatus('disbursement_order', 'channel_type_list')),
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
+    })
+  }
+  return searchItems
 }

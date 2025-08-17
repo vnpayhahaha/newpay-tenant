@@ -50,7 +50,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err.response.data?.message)
             })
             break
           // 修改
@@ -60,7 +60,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err.response.data?.message)
             })
             break
         }
@@ -69,13 +69,24 @@ const maDialog: UseDialogExpose = useDialog({
     okLoadingState(false)
   },
 })
-
+const responseTableData = ref<Record<string, any>>({
+  list: [],
+  total: 0,
+})
 // 参数配置
 const options = ref<MaProTableOptions>({
   // 表格距离底部的像素偏移适配
   adaptionOffsetBottom: 161,
   header: {
     mainTitle: () => t('disbursement_order.index'),
+    subTitle: () => {
+      return (
+        `| ${
+          t('disbursement_order.query_total')
+        }: ${
+          responseTableData.value.total}`
+      )
+    },
   },
   // 表格参数
   tableOptions: {
@@ -99,6 +110,14 @@ const options = ref<MaProTableOptions>({
   // 请求配置
   requestOptions: {
     api: page,
+    requestParams: {
+      orderBy: 'id',
+      orderType: 'desc',
+    },
+    responseDataHandler: (response: Record<string, any>) => {
+      responseTableData.value = response
+      return response.list
+    },
   },
 })
 // 架构配置
@@ -106,15 +125,40 @@ const schema = ref<MaProTableSchema>({
   // 搜索项
   searchItems: getSearchItems(t),
   // 表格列
-  tableColumns: getTableColumns(maDialog, formRef, t),
+  tableColumns: getTableColumns(t),
 })
 </script>
 
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
+      <template #actions>
+        <el-button
+          type="primary"
+          @click="() => {
+            maDialog.setTitle(t('crud.add'))
+            maDialog.open({ formType: 'add' })
+          }"
+        >
+          {{ t('crud.add') }}
+        </el-button>
+      </template>
       <template #toolbarLeft>
         <NmSearch :proxy="proTableRef" :row="2" />
+      </template>
+      <!-- 数据为空时 -->
+      <template #empty>
+        <el-empty>
+          <el-button
+            type="primary"
+            @click="() => {
+              maDialog.setTitle(t('crud.add'))
+              maDialog.open({ formType: 'add' })
+            }"
+          >
+            {{ t('crud.add') }}
+          </el-button>
+        </el-empty>
       </template>
     </MaProTable>
 

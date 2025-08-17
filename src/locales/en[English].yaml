@@ -3,6 +3,7 @@ loginForm:
   passwordPlaceholder: please input password
   codeLabel: Captcha
   usernameLabel: Account
+  tenantIdLabel: Tenant ID
   codePlaceholder: please input captcha
   usernamePlaceholder: please input account
   passwordLabel: Password

@@ -37,18 +37,46 @@ transaction_queue_status:
   error_detail: 错误详情
   created_at: 创建时间
   updated_at: 更新时间
+transaction_voucher:
+  index: 交易凭证
+  channel_id: 渠道/银行
+  channel_account_id: 渠道账户ID
+  bank_account_id: 银行账户ID
+  collection_card_no: 收款卡号
+  collection_amount: 收款金额
+  collection_fee: 手续费
+  collection_time: 收款时间
+  collection_status: 状态
+  collection_source: 收款来源
+  transaction_voucher: 交易凭证
+  transaction_voucher_type: 凭证类型
+  order_no: 订单编号
+  content: 内容
+  operation_admin_id: 操作管理员ID
+  created_at: 创建时间
+  updated_at: 更新时间
+  transaction_type: 交易类型
 collection_order:
   index: 收款订单
   all: 全部
+  channel: 渠道信息
+  bank_account: 银行账号
+  channel_account: 上游账号
+  merchant_id: 商户ID
+  branch_name: 支行名称
+  order_no: 订单号
   platform_order_no: 平台订单号
-  merchant_order_no: 下游订单号
+  tenant_order_no: 下游订单号
   upstream_order_no: 上游订单号
+  amount_info: 金额信息
   amount: 金额
   payable_amount: 应收金额
   paid_amount: 实收金额
+  fee: 手续费
   fixed_fee: 固定手续费
   rate_fee: 费率
-  total_fee: 手续费
+  total_fee: 总计
+  upstream_settlement_info: 上游结算信息
   upstream_fee: 上游手续费
   upstream_settlement_amount: 上游结算金额
   settlement_amount: 结算金额
@@ -63,14 +91,15 @@ collection_order:
   callback_count: 回调次数
   notify_status: 通知状态
   checkout_url: 收银台地址
-  return_url:  返回地址
+  return_url: 返回地址
   tenant_id: 租户ID
   app_id: 应用ID
-  payer_name: 付款人名称
-  payer_account: 付款人账号
-  payer_bank: 付款人银行
-  payer_ifsc: 付款人IFSC
-  payer_upi: 付款人UPI
+  payer_info: 收款信息
+  payer_name: 收款人名称
+  payer_account: 收款人账号
+  payer_bank: 收款人银行
+  payer_ifsc: 收款人IFSC
+  payer_upi: 收款人UPI
   description: 描述
   status: 状态
   channel_transaction_no: 渠道交易流水号
@@ -79,25 +108,42 @@ collection_order:
   request_id: 请求ID
   created_at: 创建时间
   updated_at: 更新时间
-  payment_proof_photo: 付款凭证图片
+  payment_proof_photo: 付款凭证
   platform_transaction_no: 平台交易流水号
   utr: UTR
   customer_submitted_utr: 客户提交UTR
+  query_total: 查询总数
+  write_off: 核销
+  transaction_voucher: 交易凭证
+  paid_info: 付款信息
+  cancelled_at: 取消时间
+  cancelled_by: 取消人
+  cancel_info: 取消信息
+  submitted_utr: 提交UTR
 disbursement_order:
+  bankStatement: 银行账单
   index: 付款订单
   all: 全部
+  bank_account: 银行账号
+  channel_account: 上游账号
+  channel: 渠道信息
+  channel_type: 渠道类型
+  order_no: 订单号
   platform_order_no: 平台订单号
-  merchant_order_no: 下游订单号
+  tenant_order_no: 下游订单号
   upstream_order_no: 上游订单号
   pay_time: 付款时间
   order_source: 订单来源
   disbursement_channel_id: 渠道ID
-  disbursement_bank_id: 银行ID
+  bank_account_id: 银行账户ID
+  channel_account_id: 上游账户ID
   amount: 金额
   paid_amount: 已付款金额
+  fee: 手续费
   fixed_fee: 固定手续费
-  rate_fee: 动态手续费
+  rate_fee: 费率
   total_fee: 总手续费
+  upstream_settlement_info: 上游结算信息
   settlement_amount: 结算金额
   upstream_fee: 上游手续费
   upstream_settlement_amount: 上游结算金额
@@ -113,8 +159,8 @@ disbursement_order:
   description: 描述
   status: 状态
   expire_time: 过期时间
-  callback_url: 回调地址
-  callback_count: 回调次数
+  notify_url: 回调地址
+  notify_count: 回调次数
   notify_status: 通知状态
   channel_transaction_no: 渠道交易号
   error_code: 错误码
@@ -122,6 +168,67 @@ disbursement_order:
   request_id: 请求ID
   created_at: 创建时间
   updated_at: 更新时间
+  paid_info: 付款信息
+  cancelled_at: 取消时间
+  cancelled_by: 取消人
+  cancel_info: 取消信息
+  payee_info: 收款信息
+  undistributed: 未分配
+  distributed: 已分配
+  distribute: 分配
+  query_total: 查询总数
+  write_off: 核销
+  downloadBankBillMessage: 银行账单下载
+  downloadBankBillSuccess: 银行账单下载成功
+  downloadBankBillError: 请求服务器错误，下载失败
+  download: 下 载
+  bank_disbursement_download: 银行账单
+  downloadBankBillSelectBankAccountMsg: 请选择银行和银行账号后再继续
+bankStatement:
+  index: 银行账单
+  download: 下载
+  select_bank_account: 选择银行账户
+bank_disbursement_download:
+  index: 下载记录
+  attachment_id: 资源ID
+  file_name: 文件名
+  path: 存储路径
+  hash: 文件哈希
+  file_size: 文件大小
+  record_count: 下载次数
+  created_by: 创建人
+  created_at: 创建时间
+TransactionRawData:
+  index: 原始凭证
+  hash: 哈希值
+  content: 内容
+  source: 来源
+  status: 状态
+  repeat_count: 重复次数
+  created_at: 创建时间
+  updated_at: 更新时间
+TransactionParsingRules:
+  index: 解析规则
+  channel: 渠道
+  channel_id: 渠道ID
+  regex: 正则
+  variable_name: 变量名
+  example_data: 示例数据
+  status: 状态
+  created_at: 创建时间
+  updated_at: 更新时间
+  deleted_at: 删除时间
+  parse_result: 解析结果
+TransactionParsingLog:
+  index: 解析日志
+  raw_data_id: 原始凭证ID
+  rule_id: 解析规则ID
+  rule_text: 规则文本
+  variable_name: 变量名
+  status: 状态
+  voucher_id: 凭证ID
+  created_at: 创建时间
+  desc: 描述
 menu:
   transaction_record:
     list: 交易记录列表
@@ -145,3 +252,56 @@ menu:
     create: 新增付款订单
     update: 修改付款订单
     delete: 删除付款订单
+  transaction_voucher:
+    list: 交易凭证列表
+    create: 新增交易凭证
+    update: 修改交易凭证
+    delete: 删除交易凭证
+  bank_disbursement_download:
+    list: 银行账单下载列表
+    create: 新增银行账单下载
+    update: 修改银行账单下载
+    delete: 删除银行账单下载
+  transaction_raw_data:
+    list: 原始凭证列表
+    create: 新增原始凭证
+    update: 修改原始凭证
+    delete: 删除原始凭证
+  transaction_parsing_rules:
+    list: 解析规则列表
+    create: 新增解析规则
+    update: 修改解析规则
+    delete: 删除解析规则
+  transaction_parsing_log:
+    list: 解析日志列表
+    create: 新增解析日志
+    update: 修改解析日志
+    delete: 删除解析日志
+enums:
+  transaction_type:
+    collection: 代收
+    disbursement: 代付
+  transaction_voucher_type:
+    order_no: 交易ID
+    utr: UTR
+    amount: 金额
+  CollectionOrder:
+    status:
+      processing: 待支付
+      success: 已支付
+      suspend: 待处理
+      fail: 已失败
+      cancel: 已取消
+      invalid: 已失效
+      refund: 已退款
+  disbursement_order:
+    status:
+      create: 已创建
+      wait_pay: 待支付
+      wait_fill: 支付中
+      success: 已成功
+      suspend: 待处理
+      fail: 已失败
+      cancel: 已取消
+      invalid: 已失效
+      refund: 已退款

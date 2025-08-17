@@ -24,11 +24,11 @@ const appTitle = ref<string>(import.meta.env.VITE_APP_TITLE)
       {{ t('mineAdmin.slogan') }}
     </div>
     <div class="mt-3 flex items-center gap-x-2">
-      <ma-svg-icon name="skill-icons:php-light" class="text-4xl" />
+      <ma-svg-icon name="icon-park-outline:pay-code-one" class="text-4xl" />
       <ma-svg-icon name="material-symbols:add" class="text-3xl op-50" />
-      <ma-svg-icon name="ri:vuejs-fill" class="text-4xl" />
+      <ma-svg-icon name="iconoir:paypal" class="text-4xl" />
       <ma-svg-icon name="material-symbols:add" class="text-3xl op-50" />
-      <ma-svg-icon name="ep:element-plus" class="text-4xl" />
+      <ma-svg-icon name="tabler:credit-card-pay" class="text-4xl" />
     </div>
   </div>
 </template>

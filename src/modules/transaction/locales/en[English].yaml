@@ -5,7 +5,7 @@ transaction_record:
   transaction_no: transaction no
   tenant_account_id: tenant account id
   account_id: account id
-  tenant_id:  tenant id
+  tenant_id: tenant id
   amount: amount
   fee_amount: fee amount
   net_amount: net amount
@@ -37,18 +37,46 @@ transaction_queue_status:
   error_detail: error detail
   created_at: create time
   updated_at: update time
+transaction_voucher:
+  index: Transaction Voucher
+  channel_id: channel/bank
+  channel_account_id: channel account
+  bank_account_id: bank account
+  collection_card_no: collection card no
+  collection_amount: collection amount
+  collection_fee: collection fee
+  collection_time: collection time
+  collection_status: collection status
+  collection_source: collection source
+  transaction_voucher: transaction voucher
+  transaction_voucher_type: transaction voucher type
+  order_no: order no
+  content: content
+  operation_admin_id: operation admin
+  created_at: created at
+  updated_at: updated at
+  transaction_type: 交易类型
 collection_order:
   index: Collection Order
   all: All
+  channel: Channel
+  bank_account: bank account
+  channel_account: channel account
+  merchant_id: Merchant ID
+  branch_name: Branch Name
+  order_no: Order No
   platform_order_no: Platform Order No
-  merchant_order_no: Merchant Order No
+  tenant_order_no: Merchant Order No
   upstream_order_no: Upstream Order No
+  amount_info: Amount Info
   amount: Amount
   payable_amount: Payable Amount
   paid_amount: Paid Amount
+  fee: Fee
   fixed_fee: Fixed Fee
   rate_fee: Rate Fee
-  total_fee: Total Fee
+  total_fee: Total
+  upstream_settlement_info: Upstream Settlement Info
   upstream_fee: Upstream Fee
   upstream_settlement_amount: Upstream Settlement Amount
   settlement_amount: Settlement Amount
@@ -63,14 +91,15 @@ collection_order:
   callback_count: Callback Count
   notify_status: Notify Status
   checkout_url: Checkout Url
-  return_url:  Return Url
+  return_url: Return Url
   tenant_id: Tenant Id
   app_id: App Id
-  payer_name: Payment Name
-  payer_account: Payment Account
-  payer_bank: Payment Bank
-  payer_ifsc: Payment IFSC
-  payer_upi: Payment UPI
+  payer_info: Payee Info
+  payer_name: Payee Name
+  payer_account: Payee Account
+  payer_bank: Payee Bank
+  payer_ifsc: Payee IFSC
+  payer_upi: Payee UPI
   description: Description
   status: Status
   channel_transaction_no: Channel Transaction No
@@ -83,22 +112,39 @@ collection_order:
   platform_transaction_no: Platform Transaction No
   utr: UTR
   customer_submitted_utr: Customer Submitted UTR
+  query_total: Query Total
+  write_off: Write Off
+  transaction_voucher: Transaction Voucher
+  paid_info: Paid Info
+  cancelled_at: Cancelled At
+  cancelled_by: Cancel operator
+  cancel_info: Cancel Info
+  submitted_utr: Submitter UTR
 disbursement_order:
+  bankStatement: Bank Statement
   index: Payment Order
   all: All
+  bank_account: Bank Account
+  channel_account: Channel Account
+  channel: Channel Info
+  channel_type: Channel Type
+  order_no: Order No
   platform_order_no: Platform Order No
-  merchant_order_no: Merchant Order No
+  tenant_order_no: Merchant Order No
   upstream_order_no: Upstream Order No
   pay_time: Pay Time
   order_source: Order Source
   disbursement_channel_id: Disbursement Channel Id
-  disbursement_bank_id: Disbursement Bank Id
+  bank_account_id: Bank Account Id
+  channel_account_id: Channel Account Id
   amount: Amount
   paid_amount: Paid Amount
+  fee: Fee
   fixed_fee: Fixed Fee
   rate_fee: Rate Fee
   total_fee: Total Fee
   settlement_amount: Settlement Amount
+  upstream_settlement_info: Upstream Settlement Info
   upstream_fee: Upstream Fee
   upstream_settlement_amount: Upstream Settlement Amount
   payment_type: Payment Type
@@ -113,8 +159,8 @@ disbursement_order:
   description: Description
   status: Status
   expire_time: Expire Time
-  callback_url: Callback Url
-  callback_count: Callback Count
+  notify_url: Notify Url
+  notify_count: Notify Count
   notify_status: Notify Status
   channel_transaction_no: Channel Transaction No
   error_code: Error Code
@@ -122,6 +168,67 @@ disbursement_order:
   request_id: Request Id
   created_at: Create time
   updated_at: Update time
+  paid_info: Paid Info
+  cancelled_at: Cancelled At
+  cancelled_by: Cancel operator
+  cancel_info: Cancel Info
+  payee_info: Payee Info
+  undistributed: undistributed
+  distributed: distributed
+  distribute: Distribute
+  query_total: Query Total
+  write_off: Write Off
+  downloadBankBillMessage: Download bank statement
+  downloadBankBillSuccess: Bank statement downloaded successfully
+  downloadBankBillError: Request server error, download failed
+  download: Download
+  downloadBankBillSelectBankAccountMsg: Please select a bank and a bank account before continuing
+  bank_disbursement_download: Bank Statement
+bankStatement:
+  index: Bank Statement
+  download: Download
+  select_bank_account: Select Bank Account
+bank_disbursement_download:
+  index: Download Record
+  attachment_id: Attachment ID
+  file_name: File Name
+  path: Storage Path
+  hash: File Hash
+  file_size: File Size
+  record_count: Download Record Count
+  created_by: Operator
+  created_at: Create Time
+TransactionRawData:
+  index: Original voucher
+  hash: Hash
+  content: Content
+  source: Source
+  status: Status
+  repeat_count: Repeat Count
+  created_at: Create Time
+  updated_at: Update Time
+TransactionParsingRules:
+  index: Parsing Rules
+  channel: Channel
+  channel_id: Channel ID
+  regex: Regex
+  variable_name: Variable Name
+  example_data: Example Data
+  status: Status
+  created_at: Create Time
+  updated_at: Update Time
+  deleted_at: Delete Time
+  parse_result: Parse Result
+TransactionParsingLog:
+  index: Parsing Log
+  raw_data_id: Raw Data ID
+  rule_id: Rule ID
+  rule_text: Rule Text
+  variable_name: Variable Name
+  status: Status
+  voucher_id: Voucher ID
+  created_at: Create Time
+  desc: Description
 menu:
   transaction_record:
     list: Transaction Record List
@@ -143,3 +250,57 @@ menu:
     create: Disbursement Order Create
     update: Disbursement Order Update
     delete: Disbursement Order Delete
+  transaction_voucher:
+    list: Transaction Voucher List
+    create: Transaction Voucher Create
+    update: Transaction Voucher Update
+    delete: Transaction Voucher Delete
+  bank_disbursement_download:
+    list: Bank Disbursement Download List
+    create: Bank Disbursement Download Create
+    update: Bank Disbursement Download Update
+    delete: Bank Disbursement Download Delete
+  transaction_raw_data":
+    list: Transaction Raw Data List
+    create: Transaction Raw Data Create
+    update: Transaction Raw Data Update
+    delete: Transaction Raw Data Delete
+  transaction_parsing_rules:
+    list: Transaction Parsing Rules List
+    create: Transaction Parsing Rules Create
+    update: Transaction Parsing Rules Update
+    delete: Transaction Parsing Rules Delete
+  transaction_parsing_log:
+    list: Transaction Parsing Log List
+    create: Transaction Parsing Log Create
+    update: Transaction Parsing Log Update
+    delete: Transaction Parsing Log Delete
+enums:
+  transaction_type:
+    collection: Collection
+    disbursement: Disbursement
+  transaction_voucher_type:
+    order_no: Transaction ID
+    utr: UTR
+    amount: Amount
+  CollectionOrder:
+    status:
+      create: created
+      processing: pending payment
+      success: success
+      suspend: suspend
+      fail: failed
+      cancel: cancelled
+      invalid: invalid
+      refund: refunded
+  disbursement_order:
+    status:
+      create: created
+      wait_pay: pending payment
+      wait_fill: processing
+      success: success
+      suspend: suspend
+      fail: failed
+      cancel: cancelled
+      invalid: invalid
+      refund: refunded

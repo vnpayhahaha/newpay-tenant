@@ -6,8 +6,6 @@ loginForm:
   codePlaceholder: please input captcha
   usernamePlaceholder: please input account
   passwordLabel: Password
-  tenantIdLabel: Tenant ID
-  tenantIdPlaceholder: please input tenant id
 mineAdmin:
   goHome: Back to Home
   settings:
@@ -167,11 +165,20 @@ crud:
   noPermission: There is no permission to access or use this feature
   userNotAllow: This feature is not accessible or available to current users
   superAdminNoEdit: SuperAdmin not allow edit
+  reset_password: Reset password
+  reset_password_message: Have you confirmed the password reset?
+  reset_password_success: Password reset successful
+  cancelMessage: Should the selected order be canceled?
+  cancelDataMessage: Do you want to cancel the order?
+  cancelSuccess: Cancel successfully
+  downlaod: Download
+  downlaodMessage: Are you sure to download the data?
+  downlaodSuccess: Download successful
 form:
   pleaseInput: Please input {msg}
   pleaseSelect: Please select {msg}
-  requiredInput: '{msg} Required'
-  requiredSelect: '{msg} Required'
+  requiredInput: "{msg} Required"
+  requiredSelect: "{msg} Required"
 dictionary:
   system:
     statusEnabled: Enabled
@@ -194,3 +201,13 @@ common:
   boolean:
     true: yes
     false: no
+  min: Minimum value
+  max: Maximum value
+  copy: Copy
+  copyed: Copied
+  copySueccess: Copied to clipboard
+  copyError: Copy failed
+  select_channel: Select channel
+  placeholder_url: Please enter a URL (starting with http:// or https://)
+validation:
+  rangeInvalid: The value must be between {min} and {max}

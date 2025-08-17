@@ -6,8 +6,6 @@ loginForm:
   codePlaceholder: 请输入验证码
   usernamePlaceholder: 请输入账户
   passwordLabel: 密码
-  tenantIdLabel: 租户ID
-  tenantIdPlaceholder: 请输入租户ID
 mineAdmin:
   goHome: 回到首页
   settings:
@@ -167,11 +165,20 @@ crud:
   noPermission: 没有权限访问页面或使用此功能
   userNotAllow: 当前用户不可访问或使用此功能
   superAdminNoEdit: 超管不可修改
+  reset_password: 重置密码
+  reset_password_message: 是否确认重置密码？
+  reset_password_success: 重置密码成功
+  cancelMessage: 是否取消所选中订单？
+  cancelDataMessage: 是否取消订单？
+  cancelSuccess: 取消成功
+  downlaod: 下载
+  downlaodMessage: 是否确认下载数据？
+  downlaodSuccess: 下载成功
 form:
   pleaseInput: 请输入{msg}
   pleaseSelect: 请选择{msg}
-  requiredInput: '{msg}必填'
-  requiredSelect: '{msg}必选'
+  requiredInput: "{msg}必填"
+  requiredSelect: "{msg}必选"
 dictionary:
   system:
     statusEnabled: 启用
@@ -194,3 +201,13 @@ common:
   boolean:
     true: 是
     false: 否
+  min: 最小值
+  max: 最大值
+  copy: 复制
+  copyed: 已复制
+  copySueccess: 已复制到剪贴板
+  copyError: 复制失败
+  select_channel: 选择渠道
+  placeholder_url: 请输入URL(http://或https://开头)
+validation:
+  rangeInvalid: 最小值不能大于最大值

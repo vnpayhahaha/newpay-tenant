@@ -9,9 +9,13 @@
  */
 
 import type { MaSearchItem } from '@mineadmin/search'
+import { selectStatus } from '@/modules/Common'
 
-export default function getSearchItems(t: any): MaSearchItem[] {
-  return [
+export default function getSearchItems(
+  t: any,
+  hideStatus: boolean = false,
+): MaSearchItem[] {
+  const searchItems: MaSearchItem[] = [
     {
       label: () => t('collection_order.platform_order_no'),
       prop: 'platform_order_no',
@@ -21,59 +25,84 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       },
     },
     {
-      label: () => t('collection_order.merchant_order_no'),
-      prop: 'merchant_order_no',
+      label: () => t('collection_order.tenant_order_no'),
+      prop: 'tenant_order_no',
       render: () => <el-input />,
       renderProps: {
-        placeholder: t('collection_order.merchant_order_no'),
-      },
-    },
-    {
-      label: () => t('collection_order.upstream_order_no'),
-      prop: 'upstream_order_no',
-      render: () => <el-input />,
-      renderProps: {
-        placeholder: t('collection_order.upstream_order_no'),
+        placeholder: t('collection_order.tenant_order_no'),
       },
     },
     {
       label: () => t('collection_order.settlement_type'),
       prop: 'settlement_type',
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
       renderProps: {
+        api: () =>
+          new Promise(resolve =>
+            resolve(selectStatus('collection_order', 'settlement_type_list')),
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
         placeholder: t('collection_order.settlement_type'),
       },
     },
     {
       label: () => t('collection_order.collection_type'),
       prop: 'collection_type',
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
       renderProps: {
+        api: () =>
+          new Promise(resolve =>
+            resolve(selectStatus('collection_order', 'collection_type_list')),
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
         placeholder: t('collection_order.collection_type'),
       },
     },
     {
-      label: () => t('collection_order.collection_channel_id'),
-      prop: 'collection_channel_id',
-      render: () => <el-input />,
+      label: () => t('collection_order.created_at'),
+      prop: 'created_at',
+      render: () => <el-date-picker />,
       renderProps: {
-        placeholder: t('collection_order.collection_channel_id'),
+        type: 'datetimerange',
+        rangeSeparator: '~',
+        startPlaceholder: t('common.startTime'),
+        endPlaceholder: t('common.endTime'),
+        valueFormat: 'YYYY-MM-DD HH:mm:ss',
+        name: [t('collection_order.created_at')],
       },
     },
     {
       label: () => t('collection_order.pay_time'),
       prop: 'pay_time',
-      render: () => <el-input />,
+      render: () => <el-date-picker />,
       renderProps: {
-        placeholder: t('collection_order.pay_time'),
+        type: 'datetimerange',
+        rangeSeparator: '~',
+        startPlaceholder: t('common.startTime'),
+        endPlaceholder: t('common.endTime'),
+        valueFormat: 'YYYY-MM-DD HH:mm:ss',
+        name: [t('collection_order.pay_time')],
       },
     },
     {
       label: () => t('collection_order.expire_time'),
       prop: 'expire_time',
-      render: () => <el-input />,
+      render: () => <el-date-picker />,
       renderProps: {
-        placeholder: t('collection_order.expire_time'),
+        type: 'datetimerange',
+        rangeSeparator: '~',
+        startPlaceholder: t('common.startTime'),
+        endPlaceholder: t('common.endTime'),
+        valueFormat: 'YYYY-MM-DD HH:mm:ss',
+        name: [t('collection_order.expire_time')],
       },
     },
     {
@@ -87,25 +116,35 @@ export default function getSearchItems(t: any): MaSearchItem[] {
     {
       label: () => t('collection_order.recon_type'),
       prop: 'recon_type',
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
       renderProps: {
+        api: () =>
+          new Promise(resolve =>
+            resolve(selectStatus('collection_order', 'recon_type_list')),
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
         placeholder: t('collection_order.recon_type'),
       },
     },
     {
       label: () => t('collection_order.notify_status'),
       prop: 'notify_status',
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
       renderProps: {
+        api: () =>
+          new Promise(resolve =>
+            resolve(selectStatus('collection_order', 'notify_status_list')),
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
         placeholder: t('collection_order.notify_status'),
-      },
-    },
-    {
-      label: () => t('collection_order.tenant_id'),
-      prop: 'tenant_id',
-      render: () => <el-input />,
-      renderProps: {
-        placeholder: t('collection_order.tenant_id'),
       },
     },
     {
@@ -156,14 +195,14 @@ export default function getSearchItems(t: any): MaSearchItem[] {
         placeholder: t('collection_order.payer_upi'),
       },
     },
-    {
-      label: () => t('collection_order.status'),
-      prop: 'status',
-      render: () => <el-input />,
-      renderProps: {
-        placeholder: t('collection_order.status'),
-      },
-    },
+    // {
+    //   label: () => t("collection_order.status"),
+    //   prop: "status",
+    //   render: () => <el-input />,
+    //   renderProps: {
+    //     placeholder: t("collection_order.status"),
+    //   },
+    // },
     {
       label: () => t('collection_order.channel_transaction_no'),
       prop: 'channel_transaction_no',
@@ -205,4 +244,23 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       },
     },
   ]
+  if (!hideStatus) {
+    searchItems.push({
+      label: () => t('collection_order.status'),
+      prop: 'status',
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () =>
+          new Promise(resolve =>
+            resolve(selectStatus('collection_order', 'status_list')),
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
+    })
+  }
+  return searchItems
 }

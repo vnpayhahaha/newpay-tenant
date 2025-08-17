@@ -12,6 +12,7 @@ declare module 'vue' {
     MaAuth: typeof import('./../src/components/ma-auth/index.vue')['default']
     MaCitySelect: typeof import('./../src/components/ma-city-select/index.vue')['default']
     MaColCard: typeof import('./../src/components/ma-col-card/index.vue')['default']
+    MaCopy: typeof import('./../src/components/ma-copy/index.vue')['default']
     MaDialog: typeof import('./../src/components/ma-dialog/index.vue')['default']
     MaDictCheckbox: typeof import('./../src/components/ma-dict-picker/ma-dict-checkbox.vue')['default']
     MaDictRadio: typeof import('./../src/components/ma-dict-picker/ma-dict-radio.vue')['default']

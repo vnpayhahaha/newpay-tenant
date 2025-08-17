@@ -102,16 +102,29 @@ const options = ref<MaProTableOptions>({
     requestParams: {
       orderBy: 'id',
       orderType: 'desc',
+      status: 10,
     },
   },
 })
 // 架构配置
 const schema = ref<MaProTableSchema>({
   // 搜索项
-  searchItems: getSearchItems(t),
+  searchItems: getSearchItems(t, true),
   // 表格列
   tableColumns: getTableColumns(maDialog, formRef, t),
 })
+
+// 批量取消
+function handleCancel() {
+  const ids = selections.value.map((item: any) => item.id)
+  msg.confirm(t('crud.cancelMessage')).then(async () => {
+    const response = await cancel(ids)
+    if (response.code === ResultCode.SUCCESS) {
+      msg.success(t('crud.cancelSuccess'))
+      proTableRef.value.refresh()
+    }
+  })
+}
 </script>
 
 <template>
@@ -130,6 +143,15 @@ const schema = ref<MaProTableSchema>({
         </el-button>
       </template>
       <template #toolbarLeft>
+        <el-button
+          v-auth="['transaction:transaction_voucher:update']"
+          type="danger"
+          plain
+          :disabled="selections.length < 1"
+          @click="handleCancel"
+        >
+          {{ t("crud.cancel") }}
+        </el-button>
         <NmSearch :proxy="proTableRef" :row="2" />
       </template>
       <!-- 数据为空时 -->

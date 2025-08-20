@@ -30,20 +30,5 @@ export interface TenantAccountRecordVo {
 
 // 账单记录查询
 export function page(params: TenantAccountRecordVo): Promise<ResponseStruct<TenantAccountRecordVo[]>> {
-  return useHttp().get('/admin/tenant/tenant_account_record/list', { params })
-}
-
-// 账单记录新增
-export function create(data: TenantAccountRecordVo): Promise<ResponseStruct<null>> {
-  return useHttp().post('/admin/tenant/tenant_account_record', data)
-}
-
-// 账单记录编辑
-export function save(id: number, data: TenantAccountRecordVo): Promise<ResponseStruct<null>> {
-  return useHttp().put(`/admin/tenant/tenant_account_record/${id}`, data)
-}
-
-// 账单记录删除
-export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
-  return useHttp().delete('/admin/tenant/tenant_account_record', { data: ids })
+  return useHttp().get('/tenant/tenant_account_record/list', { params })
 }

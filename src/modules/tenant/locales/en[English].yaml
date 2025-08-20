@@ -83,7 +83,7 @@ tenantAccount:
   freezeSuccess: Freeze success
   unfreezeSuccess: UnFreeze success
 tenantAccountRecord:
-  index: All Billing records
+  index: All
   tenantAccountBillRecord: Billing records
   tenant_id: Tenant ID
   tenant_account_id: Associate tenant account ID

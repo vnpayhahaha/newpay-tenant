@@ -19,10 +19,12 @@ import getTableColumns from './components/GetTableColumns.tsx'
 import useDialog from '@/hooks/useDialog.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
-
+import useUserStore from '@/store/modules/useUserStore.ts'
 import Form from './Form.vue'
 
 defineOptions({ name: 'transaction:collection_order' })
+
+const userStore = useUserStore()
 
 const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
 const formRef = ref()
@@ -103,6 +105,7 @@ const options = ref<MaProTableOptions>({
       orderBy: 'id',
       orderType: 'desc',
       status: 10,
+      tenant_id: userStore.getUserInfo().tenant_id,
     },
   },
 })

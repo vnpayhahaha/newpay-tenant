@@ -13,16 +13,18 @@ import type { Ref } from 'vue'
 import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
-import { deleteByIds, page } from '~/transaction/api/DisbursementOrder.ts'
+import { page } from '~/transaction/api/DisbursementOrder.ts'
 import getSearchItems from './components/GetSearchItems.tsx'
 import getTableColumns from './components/GetTableColumns.tsx'
 import useDialog from '@/hooks/useDialog.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
-
+import useUserStore from '@/store/modules/useUserStore.ts'
 import Form from './Form.vue'
 
 defineOptions({ name: 'transaction:disbursement_order' })
+
+const userStore = useUserStore()
 
 const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
 const formRef = ref()
@@ -114,6 +116,7 @@ const options = ref<MaProTableOptions>({
       orderBy: 'id',
       orderType: 'desc',
       status: 11,
+      tenant_id: userStore.getUserInfo().tenant_id,
     },
     responseDataHandler: (response: Record<string, any>) => {
       responseTableData.value = response

@@ -13,16 +13,15 @@ import type { Ref } from 'vue'
 import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
-import { cancel, page } from '~/transaction/api/DisbursementOrder.ts'
+import { page } from '~/tenant/api/TenantAccountRecord.ts'
 import getSearchItems from './components/GetSearchItems.tsx'
 import getTableColumns from './components/GetTableColumns.tsx'
 import useDialog from '@/hooks/useDialog.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import useUserStore from '@/store/modules/useUserStore.ts'
-import Form from './Form.vue'
 
-defineOptions({ name: 'transaction:disbursement_order' })
+defineOptions({ name: 'tenant:tenant_account_record' })
 
 const userStore = useUserStore()
 
@@ -52,7 +51,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err.response.data?.message)
+              msg.alertError(err)
             })
             break
           // 修改
@@ -62,7 +61,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err.response.data?.message)
+              msg.alertError(err)
             })
             break
         }
@@ -71,24 +70,14 @@ const maDialog: UseDialogExpose = useDialog({
     okLoadingState(false)
   },
 })
-const responseTableData = ref<Record<string, any>>({
-  list: [],
-  total: 0,
-})
+const searchChangeTypeFilter = 3
+
 // 参数配置
 const options = ref<MaProTableOptions>({
   // 表格距离底部的像素偏移适配
   adaptionOffsetBottom: 161,
   header: {
-    mainTitle: () => t('disbursement_order.index'),
-    subTitle: () => {
-      return (
-        `| ${
-          t('disbursement_order.query_total')
-        }: ${
-          responseTableData.value.total}`
-      )
-    },
+    mainTitle: () => t('tenantAccountRecord.index'),
   },
   // 表格参数
   tableOptions: {
@@ -115,12 +104,8 @@ const options = ref<MaProTableOptions>({
     requestParams: {
       orderBy: 'id',
       orderType: 'desc',
-      status: 10,
       tenant_id: userStore.getUserInfo().tenant_id,
-    },
-    responseDataHandler: (response: Record<string, any>) => {
-      responseTableData.value = response
-      return response.list
+      change_type: searchChangeTypeFilter,
     },
   },
 })
@@ -129,70 +114,17 @@ const schema = ref<MaProTableSchema>({
   // 搜索项
   searchItems: getSearchItems(t, true),
   // 表格列
-  tableColumns: getTableColumns(t),
+  tableColumns: getTableColumns(maDialog, formRef, t),
 })
-
-// 批量取消
-function handleCancel() {
-  const ids = selections.value.map((item: any) => item.id)
-  msg.confirm(t('crud.cancelMessage')).then(async () => {
-    const response = await cancel(ids)
-    if (response.code === ResultCode.SUCCESS) {
-      msg.success(t('crud.cancelSuccess'))
-      proTableRef.value.refresh()
-    }
-  })
-}
 </script>
 
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
-      <template #actions>
-        <el-button
-          type="primary"
-          @click="() => {
-            maDialog.setTitle(t('crud.add'))
-            maDialog.open({ formType: 'add' })
-          }"
-        >
-          {{ t('crud.add') }}
-        </el-button>
-      </template>
       <template #toolbarLeft>
-        <el-button
-          v-auth="['transaction:transaction_voucher:update']"
-          type="danger"
-          plain
-          :disabled="selections.length < 1"
-          @click="handleCancel"
-        >
-          {{ t("crud.cancel") }}
-        </el-button>
         <NmSearch :proxy="proTableRef" :row="2" />
       </template>
-      <!-- 数据为空时 -->
-      <template #empty>
-        <el-empty>
-          <el-button
-            type="primary"
-            @click="() => {
-              maDialog.setTitle(t('crud.add'))
-              maDialog.open({ formType: 'add' })
-            }"
-          >
-            {{ t('crud.add') }}
-          </el-button>
-        </el-empty>
-      </template>
     </MaProTable>
-
-    <component :is="maDialog.Dialog">
-      <template #default="{ formType, data }">
-        <!-- 新增、编辑表单 -->
-        <Form ref="formRef" :form-type="formType" :data="data" />
-      </template>
-    </component>
   </div>
 </template>
 

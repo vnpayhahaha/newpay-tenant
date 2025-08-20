@@ -83,7 +83,7 @@ tenantAccount:
   freezeSuccess: 冻结成功
   unfreezeSuccess: 解冻成功
 tenantAccountRecord:
-  index: 所有账单记录
+  index: 全部
   tenantAccountBillRecord: 账单记录
   tenant_id: 租户编号
   tenant_account_id: 关联租户账户ID

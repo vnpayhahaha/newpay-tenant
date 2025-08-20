@@ -11,7 +11,6 @@ import type { MaFormItem } from '@mineadmin/form'
 import type { DisbursementOrderVo } from '~/transaction/api/DisbursementOrder.ts'
 import useUserStore from '@/store/modules/useUserStore.ts'
 import { selectStatus } from '@/modules/Common'
-import { tr } from 'element-plus/es/locale/index.mjs'
 
 const userStore = useUserStore()
 export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, model: DisbursementOrderVo): MaFormItem[] {

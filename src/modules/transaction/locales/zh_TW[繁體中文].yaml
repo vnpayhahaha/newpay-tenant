@@ -120,6 +120,7 @@ collection_order:
   cancelled_by: 取消人
   cancel_info: 取消信息
   submitted_utr: 提交UTR
+  cashier: 收银台
 disbursement_order:
   bankStatement: 银行账单
   index: 付款订单

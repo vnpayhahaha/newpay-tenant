@@ -120,6 +120,7 @@ collection_order:
   cancelled_by: Cancel operator
   cancel_info: Cancel Info
   submitted_utr: Submitter UTR
+  cashier: Cashier
 disbursement_order:
   bankStatement: Bank Statement
   index: Payment Order

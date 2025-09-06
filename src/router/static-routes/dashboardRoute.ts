@@ -19,20 +19,20 @@ const dashboardRoute: RouteRecordRaw = {
   },
   redirect: '/dashboard/workbench',
   children: [
-    {
-      name: 'dashboard:workbench',
-      path: '/dashboard/workbench',
-      meta: {
-        title: '工作台',
-        i18n: 'menu.dashboard:workbench',
-        icon: 'ic:round-computer',
-        type: 'M',
-        breadcrumbEnable: true,
-        copyright: true,
-        cache: true,
-      },
-      component: () => import(('~/base/views/dashboard/workbench.vue')),
-    },
+    // {
+    //   name: 'dashboard:workbench',
+    //   path: '/dashboard/workbench',
+    //   meta: {
+    //     title: '工作台',
+    //     i18n: 'menu.dashboard:workbench',
+    //     icon: 'ic:round-computer',
+    //     type: 'M',
+    //     breadcrumbEnable: true,
+    //     copyright: true,
+    //     cache: true,
+    //   },
+    //   component: () => import(('~/base/views/dashboard/workbench.vue')),
+    // },
     {
       name: 'dashboard:analysis',
       path: '/dashboard/analysis',
@@ -47,20 +47,20 @@ const dashboardRoute: RouteRecordRaw = {
       },
       component: () => import(('~/base/views/dashboard/analysis.vue')),
     },
-    {
-      name: 'dashboard:report',
-      path: '/dashboard/report',
-      meta: {
-        title: '统计报表',
-        i18n: 'menu.dashboard:report',
-        icon: 'iconoir:stats-report',
-        type: 'M',
-        breadcrumbEnable: true,
-        copyright: true,
-        cache: true,
-      },
-      component: () => import(('~/base/views/dashboard/report.vue')),
-    },
+    // {
+    //   name: 'dashboard:report',
+    //   path: '/dashboard/report',
+    //   meta: {
+    //     title: '统计报表',
+    //     i18n: 'menu.dashboard:report',
+    //     icon: 'iconoir:stats-report',
+    //     type: 'M',
+    //     breadcrumbEnable: true,
+    //     copyright: true,
+    //     cache: true,
+    //   },
+    //   component: () => import(('~/base/views/dashboard/report.vue')),
+    // },
   ],
 }
 

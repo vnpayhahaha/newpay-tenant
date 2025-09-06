@@ -50,6 +50,10 @@ const maDialog: UseDialogExpose = useDialog({
             formRef.value.add().then((res: any) => {
               res.code === ResultCode.SUCCESS ? msg.success(t('crud.createSuccess')) : msg.error(res.message)
               maDialog.close()
+              // 判断 res.data.pay_url 是否有值：跳转支付页面
+              if (res.code === ResultCode.SUCCESS && res?.data?.pay_url !== '') {
+                window.open(res.data.pay_url)
+              }
               proTableRef.value.refresh()
             }).catch((err: any) => {
               msg.alertError(err.response.data?.message)

@@ -8,33 +8,105 @@
  - @Link   https://github.com/mineadmin
 -->
 <script setup lang="tsx">
-import AnalysisItem from './components/analysis/analysis-item.vue'
-import AnalysisContentPublish from './components/analysis/analysis-content-publish.vue'
-import AnalysisHotAuthor from './components/analysis/analysis-hot-author.vue'
-import AnalysisContentTimer from './components/analysis/analysis-content-timer.vue'
+import AnalysisItem from "./components/analysis/analysis-item.vue";
+import AnalysisContentPublish from "./components/analysis/analysis-content-publish.vue";
+import AnalysisHotAuthor from "./components/analysis/analysis-hot-author.vue";
+import AnalysisContentTimer from "./components/analysis/analysis-content-timer.vue";
 
-defineOptions({ name: 'dashboard:analysis' })
+defineOptions({ name: "dashboard:analysis" });
+
+const i18n = useTrans() as TransType;
+const t = i18n.globalTrans;
 </script>
 
 <template>
   <div class="mine-layout">
     <div class="mine-card">
       <div class="text-base">
-        <div>舆情分析</div>
+        <div>{{ t("analysis.collection_order") }}</div>
       </div>
 
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <div><AnalysisItem name="visitors" chart-type="line" title="访问总人次" /></div>
-        <div><AnalysisItem name="published" chart-type="bar" title="内容发布量" /></div>
-        <div><AnalysisItem name="visitors" chart-type="line" title="评论总量" /></div>
-        <div><AnalysisItem name="contentTimer" chart-type="pie" title="分享总量" /></div>
+        <div>
+          <AnalysisItem
+            name="collection_order_num"
+            chart-type="bar"
+            :title="t('analysis.order_quantity')"
+            unit=""
+          />
+        </div>
+        <div>
+          <AnalysisItem
+            name="collection_successful_num"
+            chart-type="bar"
+            :title="t('analysis.success_quantity')"
+            unit=""
+          />
+        </div>
+        <div>
+          <AnalysisItem
+            name="collection_successful_rate"
+            chart-type="line"
+            :title="t('analysis.success_rate')"
+            unit="%"
+          />
+        </div>
+        <div>
+          <AnalysisItem
+            name="collection_successful_amount"
+            chart-type="line"
+            :title="t('analysis.success_amount')"
+            unit=""
+          />
+        </div>
       </div>
     </div>
 
+    <div class="mine-card">
+      <div class="text-base">
+        <div>{{ t("analysis.disbursement_order") }}</div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div>
+          <AnalysisItem
+            name="disbursement_order_num"
+            chart-type="bar"
+            :title="t('analysis.order_quantity')"
+            unit=""
+          />
+        </div>
+        <div>
+          <AnalysisItem
+            name="disbursement_successful_num"
+            chart-type="bar"
+            :title="t('analysis.success_quantity')"
+            unit=""
+          />
+        </div>
+        <div>
+          <AnalysisItem
+            name="disbursement_successful_rate"
+            chart-type="line"
+            :title="t('analysis.success_rate')"
+            unit="%"
+          />
+        </div>
+        <div>
+          <AnalysisItem
+            name="disbursement_successful_amount"
+            chart-type="line"
+            :title="t('analysis.success_amount')"
+            unit=""
+          />
+        </div>
+      </div>
+    </div>
+    <!--
     <div class="xl:flex">
       <AnalysisContentPublish />
       <AnalysisHotAuthor />
-    </div>
+    </div> -->
 
     <AnalysisContentTimer />
   </div>

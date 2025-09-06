@@ -226,3 +226,15 @@ recycleBin:
   createdAt: 创建时间
   restore: 恢复
   list: 回收站列表
+analysis:
+  collection_order: 收款订单
+  disbursement_order: 付款订单
+  order_quantity: 订单数量
+  success_quantity: 成功数量
+  success_rate: 成功率
+  success_amount: 成交金额
+  compared_to_yesterday: 较昨日
+  success_order_line: 成功订单
+  one_week: 一周内
+  yesterday: 昨日
+  today: 今日

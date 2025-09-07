@@ -159,6 +159,7 @@ const useUserStore = defineStore(
     function setLanguage(langName: string) {
       language.value = langName
       cache.set('language', language.value)
+      saveSettingToSever(language.value);
       return true
     }
 
@@ -209,8 +210,9 @@ const useUserStore = defineStore(
       useThemeColor().initThemeColor()
     }
 
-    function saveSettingToSever() {
+    function saveSettingToSever(lang?: string) {
       const backend_setting = setting.getSettings()
+      backend_setting.app.useLocale = lang ?? getLanguage();
       useHttp().post('/tenant/permission/update', { backend_setting }).then(() => {
         cache.set('sys_settings', backend_setting)
       }).catch((error) => {

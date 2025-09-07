@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import type { MaProTableExpose } from '@mineadmin/pro-table'
 import type { TableColumnRenderer } from '@mineadmin/table'
 import { getDictionaryItem } from '../../utils/tools'
@@ -142,7 +142,8 @@ async function fetchData() {
   }
 }
 
-onMounted(() => {
+// 重置数据并重新获取
+async function resetAndFetchData() {
   // 重置颜色计数器
   colorCounter = 0
 
@@ -156,7 +157,19 @@ onMounted(() => {
       color: item.color || getNextColorAlias(),
     }))
   }
+}
+
+onMounted(() => {
+  resetAndFetchData() // 初始化时获取数据
 })
+
+// 监听语言变化
+watch(
+  () => useUserStore().getLanguage(),
+  () => {
+    resetAndFetchData() // 语言变化时重新获取数据
+  },
+)
 
 const modelValue = computed(() => {
   return props?.prop ? data.row[props.prop] : null
@@ -202,7 +215,9 @@ function safeGetLabel(key: string | number) {
 }
 
 // 统一事件处理
-function handleEvent(eventHandlers: Record<string, (...args: any[]) => void> = {}) {
+function handleEvent(
+  eventHandlers: Record<string, (...args: any[]) => void> = {},
+) {
   const handlerMap = {}
   Object.keys(eventHandlers).forEach((event) => {
     handlerMap[event] = (...args: any[]) => {
@@ -228,7 +243,8 @@ function handleEvent(eventHandlers: Record<string, (...args: any[]) => void> = {
       :color="safeGetLabel(item).color"
       v-bind="props?.props || {}"
       :class="{
-        'light-tag': calculateLuminance(safeGetLabel(item).color ?? 'primary') > 0.6,
+        'light-tag':
+          calculateLuminance(safeGetLabel(item).color ?? 'primary') > 0.6,
       }"
       v-on="handleEvent(props?.props?.on)"
     >
@@ -242,7 +258,8 @@ function handleEvent(eventHandlers: Record<string, (...args: any[]) => void> = {
       :color="safeGetLabel(modelValue).color"
       v-bind="props?.props"
       :class="{
-        'light-tag': calculateLuminance(safeGetLabel(modelValue).color ?? 'primary') > 0.6,
+        'light-tag':
+          calculateLuminance(safeGetLabel(modelValue).color ?? 'primary') > 0.6,
       }"
       v-on="handleEvent(props?.props?.on)"
     >
@@ -253,21 +270,21 @@ function handleEvent(eventHandlers: Record<string, (...args: any[]) => void> = {
 
 <style scoped lang="scss">
 :deep(.el-tag) {
-    border: none;
-    margin: 2px;
-    font-weight: bold;
-    color: white; // 默认白色文字
+  border: none;
+  margin: 2px;
+  font-weight: bold;
+  color: white; // 默认白色文字
 
-    // 深色背景标签 - 白色文字带阴影
-    &:not(.light-tag) {
-      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-    }
+  // 深色背景标签 - 白色文字带阴影
+  &:not(.light-tag) {
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  }
 
-    // 亮色背景标签 - 深色文字带浅色阴影
-    &.light-tag {
-      color: #333;
-      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
-      border: 1px solid rgba(0, 0, 0, 0.1); // 添加边框增加对比度
-    }
+  // 亮色背景标签 - 深色文字带浅色阴影
+  &.light-tag {
+    color: #333;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.1); // 添加边框增加对比度
+  }
 }
 </style>

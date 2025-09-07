@@ -67,15 +67,22 @@ const maDialog: UseDialogExpose = useDialog({
               proTableRef.value.refresh()
             }).catch((err: any) => {
               msg.alertError(err.response.data?.message)
+            }).finally(() => {
+              // 在异步操作完成后恢复按钮状态
+              okLoadingState(false)
             })
             break
         }
-      }).catch()
+      }).catch(() => {
+        // 表单验证失败时恢复按钮状态
+        okLoadingState(false)
+      })
     }
-    okLoadingState(false)
+    else {
+      okLoadingState(false)
+    }
   },
 })
-
 // 参数配置
 const options = ref<MaProTableOptions>({
   // 表格距离底部的像素偏移适配

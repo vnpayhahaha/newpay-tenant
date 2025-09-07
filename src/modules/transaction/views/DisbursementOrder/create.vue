@@ -53,6 +53,9 @@ const maDialog: UseDialogExpose = useDialog({
               proTableRef.value.refresh()
             }).catch((err: any) => {
               msg.alertError(err.response.data?.message)
+            }).finally(() => {
+              // 在异步操作完成后恢复按钮状态
+              okLoadingState(false)
             })
             break
           // 修改
@@ -63,12 +66,21 @@ const maDialog: UseDialogExpose = useDialog({
               proTableRef.value.refresh()
             }).catch((err: any) => {
               msg.alertError(err.response.data?.message)
+            }).finally(() => {
+              // 在异步操作完成后恢复按钮状态
+              okLoadingState(false)
             })
             break
         }
-      }).catch()
+      }).catch(() => {
+        // 表单验证失败时恢复按钮状态
+        okLoadingState(false)
+      })
     }
-    okLoadingState(false)
+    else {
+      // 不是add或edit时也要恢复按钮状态
+      okLoadingState(false)
+    }
   },
 })
 const responseTableData = ref<Record<string, any>>({
@@ -115,7 +127,7 @@ const options = ref<MaProTableOptions>({
     requestParams: {
       orderBy: 'id',
       orderType: 'desc',
-      status: 0,
+      status: 1,
       tenant_id: userStore.getUserInfo().tenant_id,
     },
     responseDataHandler: (response: Record<string, any>) => {

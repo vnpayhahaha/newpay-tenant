@@ -16,6 +16,8 @@ import hasAuth from '@/utils/permission/hasAuth.ts'
 import hasRole from '@/utils/permission/hasRole.ts'
 import hasUser from '@/utils/permission/hasUser.ts'
 import { isEmpty } from 'radash'
+import axios from "axios";
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 const { isLoading } = useNProgress()
 
@@ -25,6 +27,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  await versionCheck(to);
   const settingStore = useSettingStore()
   const userStore = useUserStore()
   isLoading.value = true
@@ -84,5 +87,28 @@ router.afterEach(async (to) => {
     iframeKeepAliveStore.add(to.name)
   }
 })
+
+// 版本监控
+const versionCheck = async (to) => {
+  //if (import.meta.env.VITE_APP_ENV === 'development') return;
+  const response = await axios.get('/version.json');
+  console.log("response.data.version==",response.data.version);
+  console.log('__APP_VERSION__==',__APP_VERSION__);
+  //此处代码自己根据自己业务处理方式 这里使用Element UI控件做出对应选择
+  if (__APP_VERSION__ !== response.data.version) {
+    ElMessageBox.alert('📢 发现新的版本，请及时更新', '版本更新提示', {
+      confirmButtonText: '立即更新',
+      type: 'info',
+      center: true,
+    }).then(() => {
+      ElMessage({
+        message: '版本更新中...',
+        type: 'info',
+        duration: 0,
+      });
+      location.reload();
+    });
+  }
+};
 
 export default router

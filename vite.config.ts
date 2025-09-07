@@ -5,10 +5,12 @@ import { defineConfig, loadEnv } from 'vite'
 import pkg from './package.json'
 import createVitePlugins from './vite'
 import { exclude, include } from './vite/optimize'
+import versionUpdatePlugin from './src/versionUpdatePlugin' // 引入插件
 
 // https://cn.vite.dev/config/
 export default async ({ mode, command }) => {
   const env = loadEnv(mode, process.cwd())
+  const now = dayjs().format('YYYY-MM-DD HH:mm:ss') // 定义 now 变量
   function isProduction(): boolean {
     return mode === 'production'
   }
@@ -64,8 +66,16 @@ export default async ({ mode, command }) => {
         },
         lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
       }),
+      // 定义全局变量
+      __APP_VERSION__: JSON.stringify(now)
     },
-    plugins: createVitePlugins(env, command === 'build'),
+    plugins: [
+      createVitePlugins(env, command === 'build'),
+       // 版本更新插件
+      versionUpdatePlugin({
+        version: now
+      })
+    ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),

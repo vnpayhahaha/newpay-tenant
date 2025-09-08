@@ -8,6 +8,8 @@
 
 .gradient-rainbow {
   @apply rounded-r-[8px] w-full h-full z-1 relative bg-blue-950;
+  background-repeat: no-repeat;
+  background-size: 144% 100%; 
 }
 
 .login-logo {

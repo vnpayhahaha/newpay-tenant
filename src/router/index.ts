@@ -90,7 +90,7 @@ router.afterEach(async (to) => {
 
 // 版本监控
 const versionCheck = async (to) => {
-  //if (import.meta.env.VITE_APP_ENV === 'development') return;
+  if (import.meta.env.VITE_APP_ENV === 'development') return;
   const response = await axios.get('/version.json');
   console.log("response.data.version==",response.data.version);
   console.log('__APP_VERSION__==',__APP_VERSION__);

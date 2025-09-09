@@ -69,3 +69,13 @@ export function getUserRole(id: number): Promise<ResponseStruct<any[]>> {
 export function setUserRole(id: number, role_codes: string[]): Promise<ResponseStruct<null>> {
   return useHttp().put(`/admin/user/${id}/roles`, { role_codes })
 }
+
+export function bindGoogleSecretKey(data: UserVo): Promise<ResponseStruct<null>> {
+  return useHttp().put('/tenant/bindGoogleSecretKey', data)
+}
+
+export function google2FaStatus(is_enabled_google: boolean): Promise<ResponseStruct<null>> {
+  return useHttp().put('/tenant/user/google_2fa_status', {
+    is_enabled_google,
+  })
+}

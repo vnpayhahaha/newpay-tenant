@@ -249,6 +249,7 @@ const useUserStore = defineStore(
       getLanguage,
       requestUserInfo,
       getUserInfo,
+      setUserInfo,
       setPermissions,
       getPermissions,
       getRoles,

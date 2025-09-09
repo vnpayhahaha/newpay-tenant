@@ -171,3 +171,5 @@ analysis:
   one_week: 一周内
   yesterday: 昨日
   today: 今日
+welcome:
+  document: 接口文档

@@ -25,6 +25,7 @@ const form = reactive<{
   tenant_id: string
   username: string
   password: string
+  google_2fa_code?: string
   code: string
 }>({
   tenant_id: isProduction ? '' : '000001',
@@ -113,6 +114,18 @@ async function submit() {
         type="password"
         :placeholder="t('loginForm.passwordPlaceholder')"
         @blur="easyValidate"
+      />
+    </div>
+    <div class="mine-login-form-item">
+      <div class="mine-login-form-item-title">
+        {{ t("loginForm.googleCodeLabel") }}
+      </div>
+      <m-input
+        v-model="form.google_2fa_code"
+        class="!bg-white !text-black !ring-gray-2 !focus-ring-[rgb(var(--ui-primary))] !placeholder-stone-4"
+        name="google_2fa_code"
+        clearable
+        :placeholder="t('loginForm.google_2fa_codePlaceholder')"
       />
     </div>
     <div v-if="isProduction" class="mine-login-form-item">

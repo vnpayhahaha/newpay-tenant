@@ -13,10 +13,13 @@ import useUserStore from '@/store/modules/useUserStore.ts'
 import { selectStatus } from '@/modules/Common'
 
 const userStore = useUserStore()
+
 export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, model: DisbursementOrderVo): MaFormItem[] {
+  // 使用响应式用户信息
+  const userInfo = ref({ ...userStore.getUserInfo() })
   // 新增默认值
   if (formType === 'add') {
-    model.tenant_id = userStore.getUserInfo().tenant_id
+    model.tenant_id = userInfo.value.tenant_id
     return [
       {
         label: t('disbursement_order.tenant_order_no'),
@@ -139,6 +142,14 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
           placeholder: t('disbursement_order.payee_account_no'),
           clearable: true,
         },
+      },
+      {
+        label: t('google_2f.title'),
+        show: () =>
+          userInfo.value.is_enabled_google && userInfo.value.is_bind_google,
+        prop: 'google2f_code',
+        render: () => <el-input clearable />,
+        itemProps: { required: true },
       },
     ]
   }

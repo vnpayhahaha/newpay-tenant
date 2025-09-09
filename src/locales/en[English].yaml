@@ -8,6 +8,8 @@ loginForm:
   codePlaceholder: please input captcha
   usernamePlaceholder: please input account
   passwordLabel: Password
+  googleCodeLabel: Two-factor authentication code
+  google_2fa_codePlaceholder: Please input two-factor authentication code
 mineAdmin:
   goHome: Back to Home
   settings:
@@ -213,3 +215,6 @@ common:
   placeholder_url: Please enter a URL (starting with http:// or https://)
 validation:
   rangeInvalid: The value must be between {min} and {max}
+google_2f:
+  title: Google two-factor authentication code
+  need_valid_msg: Google two-factor authentication is required

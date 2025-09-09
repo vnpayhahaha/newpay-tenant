@@ -8,6 +8,8 @@ loginForm:
   codePlaceholder: 請輸入驗證碼
   usernamePlaceholder: 請輸入賬戶
   passwordLabel: 密碼
+  googleCodeLabel: 双因素验证码
+  google_2fa_codePlaceholder: 请输入谷歌双因素验证码
 mineAdmin:
   goHome: 回到首頁
   settings:
@@ -213,3 +215,6 @@ common:
   placeholder_url: 请输入URL(http://或https://开头)
 validation:
   rangeInvalid: 最小值不能大于最大值
+google_2f:
+  title: 谷歌双因素验证码
+  need_valid_msg: 需要进行谷歌双因素验证

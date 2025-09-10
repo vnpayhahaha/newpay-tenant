@@ -26,7 +26,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
 
   return [
     // 多选列
-    { type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection') },
+    // { type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection') },
     // 索引序号列
     { type: 'index' },
     // 普通列
@@ -63,34 +63,16 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     {
       label: () => t('tenantUser.status'), prop: 'status',
       width: 80,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'switch',
-          prop: 'status',
-          props: {
-            size: 'small',
-            activeValue: true,
-            inactiveValue: false,
-            on: {
-              change: (value: boolean, row: any, proxy: MaProTableExpose) => {
-                console.log('value', row, value)
-                save(row.user_id, {
-                  ...row,
-                  status: value,
-                }).then((res) => {
-                  if (res.code === ResultCode.SUCCESS) {
-                    msg.success(t('crud.updateSuccess'))
-                    proxy.refresh()
-                  }
-                  else {
-                    msg.error(t('crud.updateError'))
-                  }
-                })
-              },
-            },
-          },
-        },
+      cellRender: ({ row }) => {
+        return (
+          <>
+            {row.status ? (
+              <ElTag type="success">{t("mineAdmin.plugin.enabled")}</ElTag>
+            ) : (
+              <ElTag type="info">{t("mineAdmin.plugin.disabled")}</ElTag>
+            )}
+          </>
+        );
       },
     },
     { label: () => t('tenantUser.is_enabled_google'), prop: 'is_enabled_google' },
@@ -101,6 +83,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       type: 'operation',
       label: () => t('crud.operation'),
       width: '260px',
+      hide: true,
       operationConfigure: {
         type: 'tile',
         actions: [

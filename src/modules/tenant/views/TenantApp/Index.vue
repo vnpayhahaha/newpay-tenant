@@ -110,6 +110,11 @@ const options = ref<MaProTableOptions>({
   // 请求配置
   requestOptions: {
     api: page,
+    requestParams: {
+      orderBy: "id",
+      orderType: "desc",
+      tenant_id: useUserStore().getUserInfo().tenant_id,
+    },
   },
 })
 // 架构配置

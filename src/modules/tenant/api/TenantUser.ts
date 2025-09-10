@@ -45,7 +45,7 @@ export interface TenantUserVo {
 
 // 租户成员查询
 export function page(params: TenantUserVo): Promise<ResponseStruct<TenantUserVo[]>> {
-  return useHttp().get('/admin/tenant/tenant_user/list', { params })
+  return useHttp().get('/tenant/tenant/tenant_user/list', { params })
 }
 
 // 租户成员新增

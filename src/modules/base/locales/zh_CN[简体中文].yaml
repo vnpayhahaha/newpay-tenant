@@ -240,3 +240,11 @@ analysis:
   today: 今日
 welcome:
   document: 接口文档
+balance:
+  income: '收'
+  payment: '付'
+  available_balance: '可用余额'
+  frozen_balance: '冻结余额'
+  tooltip:
+    income: '收款账户信息'
+    payment: '付款账户信息'

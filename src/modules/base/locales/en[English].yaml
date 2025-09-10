@@ -203,3 +203,11 @@ analysis:
   today: Today
 welcome:
   document: API Documentation
+balance:
+  income: 'I'
+  payment: 'P'
+  available_balance: 'Available Balance'
+  frozen_balance: 'Frozen Balance'
+  tooltip:
+    income: 'Income account information'
+    payment: 'Payment account information'

@@ -11,7 +11,7 @@
 import WorkbenchFast from './components/workbench/workbench-fast.vue'
 import WorkbenchLogin from '~/base/views/welcome/components/workbench/workbench-login.vue'
 import { useI18n } from 'vue-i18n'
-import { el } from 'element-plus/es/locale/index.mjs'
+import Balance from './components/balance/index.vue'
 
 defineOptions({ name: 'welcome' })
 const userinfo = useUserStore().getUserInfo()
@@ -52,6 +52,7 @@ function openDocument() {
         </div>
       </div>
     </div>
+    <Balance />
     <WorkbenchFast />
     <WorkbenchLogin />
   </div>

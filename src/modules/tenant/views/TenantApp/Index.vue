@@ -37,37 +37,11 @@ const msg = useMessage()
 
 // 管理回收站状态
 const tableToolBar = useProTableToolbar()
-const isRecovery = ref(false)
-const maRecycleRef = ref()
 
-const IndexName = 'TenantApp:Index'
-const isRecoveryAdded = ref(false)
-onActivated(() => {
-  // console.log(`[${IndexName}] Activated`)
-  // 确保按钮只添加一次
-  if (!isRecoveryAdded.value) {
-    tableToolBar.add({
-      name: IndexName,
-      order: 0,
-      show: true,
-      render: () => h(MaRecycle, {
-        'ref': maRecycleRef, // 绑定引用
-        'proxy': proTableRef.value,
-        'isRecovery': isRecovery.value,
-        'onUpdate:isRecovery': (value: boolean) => {
-          isRecovery.value = value
-        },
-      }),
-    })
-    isRecoveryAdded.value = true
-  }
-})
-
-onDeactivated(() => {
-  // console.log(`[${IndexName}] Deactivated`)
-  // 移除工具栏按钮
-  tableToolBar.remove(IndexName)
-  isRecoveryAdded.value = false
+onMounted(() => { 
+  console.log(tableToolBar.getAll())
+  // "mineProTableSearch"
+  tableToolBar.remove('mineProTableSearch')
 })
 
 // 弹窗配置
@@ -141,109 +115,16 @@ const options = ref<MaProTableOptions>({
 // 架构配置
 const schema = ref<MaProTableSchema>({
   // 搜索项
-  searchItems: getSearchItems(t),
+  searchItems: [],
   // 表格列
   tableColumns: getTableColumns(maDialog, formRef, t),
 })
-
-// 批量删除
-function handleDelete() {
-  const ids = selections.value.map((item: any) => item.id)
-  if (isRecovery.value) {
-    msg.delConfirm(t('crud.realDeleteDataMessage')).then(async () => {
-      const response = await realDelete(ids)
-      if (response.code === ResultCode.SUCCESS) {
-        msg.success(t('crud.delSuccess'))
-        proTableRef.value.refresh()
-      }
-    })
-  }
-  else {
-    msg.delConfirm(t('crud.delMessage')).then(async () => {
-      const response = await deleteByIds(ids)
-      if (response.code === ResultCode.SUCCESS) {
-        msg.success(t('crud.delSuccess'))
-        proTableRef.value.refresh()
-      }
-    })
-  }
-}
-
-// 批量恢复
-function handleRecovery() {
-  const ids = selections.value.map((item: any) => item.id)
-  msg.confirm(t('crud.restoreMessage')).then(async () => {
-    const response = await recovery(ids)
-    if (response.code === ResultCode.SUCCESS) {
-      msg.success(t('crud.restoreSuccess'))
-      proTableRef.value.refresh()
-    }
-  })
-}
 </script>
 
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
-      <template #actions>
-        <el-button
-          v-auth="['tenantApp:tenant_app:save']"
-          type="primary"
-          @click="() => {
-            maDialog.setTitle(t('crud.add'))
-            maDialog.open({ formType: 'add' })
-          }"
-        >
-          {{ t('crud.add') }}
-        </el-button>
-      </template>
-
-      <template #toolbarLeft>
-        <el-button-group>
-          <el-button
-            v-auth="['tenant:tenant_app:delete']"
-            type="danger"
-            plain
-            :disabled="selections.length < 1"
-            @click="handleDelete"
-          >
-            {{ t('crud.delete') }}
-          </el-button>
-          <el-button
-            v-if="isRecovery"
-            v-auth="['tenant:tenant_app:recovery']"
-            type="success"
-            plain
-            :disabled="selections.length < 1"
-            @click="handleRecovery"
-          >
-            {{ t('crud.restore') }}
-          </el-button>
-        </el-button-group>
-      </template>
-      <!-- 数据为空时 -->
-      <template #empty>
-        <el-empty>
-          <el-button
-            v-auth="['tenantApp:tenant_app:save']"
-            type="primary"
-            @click="() => {
-              maDialog.setTitle(t('crud.add'))
-              maDialog.open({ formType: 'add' })
-            }"
-          >
-            {{ t('crud.add') }}
-          </el-button>
-        </el-empty>
-      </template>
     </MaProTable>
-
-    <component :is="maDialog.Dialog">
-      <template #default="{ formType, data }">
-        <!-- 新增、编辑表单 -->
-        <Form ref="formRef" :form-type="formType" :data="data" />
-      </template>
-    </component>
   </div>
 </template>
 

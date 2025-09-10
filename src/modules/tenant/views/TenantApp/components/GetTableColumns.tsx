@@ -17,16 +17,9 @@ import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
-  const dictStore = useDictStore()
-  const msg = useMessage()
-
-  const showBtn = (auth: string | string[], row: TenantAppVo) => {
-    return hasAuth(auth)
-  }
-
   return [
     // 多选列
-    { type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection') },
+   // { type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection') },
     // 索引序号列
     { type: 'index' },
     // 普通列
@@ -58,7 +51,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     },
     {
       label: () => t('tenantApp.appSecret'), prop: 'app_secret',
-      width: 310,
+      minWidth: 380,
       cellRenderTo: {
         name: 'nmCellEnhance',
         props: {
@@ -69,100 +62,20 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     {
       label: () => t('tenantApp.status'), prop: 'status',
       width: 80,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'switch',
-          prop: 'status',
-          props: {
-            size: 'small',
-            activeValue: true,
-            inactiveValue: false,
-            on: {
-              change: (value: boolean, row: any, proxy: MaProTableExpose) => {
-                console.log('value', value)
-                save(row.id, {
-                  ...row,
-                  status: value,
-                }).then((res) => {
-                  if (res.code === ResultCode.SUCCESS) {
-                    msg.success(t('crud.updateSuccess'))
-                    proxy.refresh()
-                  }
-                  else {
-                    msg.error(t('crud.updateError'))
-                  }
-                })
-              },
-            },
-          },
-        },
+      cellRender: ({ row }) => {
+        return (
+          <>
+            {row.status ? (
+              <ElTag type="success">{t("mineAdmin.plugin.enabled")}</ElTag>
+            ) : (
+              <ElTag type="info">{t("mineAdmin.plugin.disabled")}</ElTag>
+            )}
+          </>
+        );
       },
     },
-    { label: () => t('tenantApp.description'), prop: 'description' },
+    // { label: () => t('tenantApp.description'), prop: 'description' },
     { label: () => t('tenantApp.createdAt'), prop: 'created_at', width: 180 },
 
-    // 操作列
-    {
-      type: 'operation',
-      label: () => t('crud.operation'),
-      width: '260px',
-      operationConfigure: {
-        type: 'tile',
-        actions: [
-          {
-            name: 'edit',
-            icon: 'i-heroicons:pencil',
-            show: ({ row }) => showBtn('tenantApp:tenant_app:update', row),
-            text: () => t('crud.edit'),
-            onClick: ({ row }) => {
-              dialog.setTitle(t('crud.edit'))
-              dialog.open({ formType: 'edit', data: row })
-            },
-          },
-          {
-            name: 'recovery',
-            icon: 'i-heroicons:arrow-left-start-on-rectangle',
-            show: ({ row }) => showBtn('tenant:tenantApp:recovery', row) && row.deleted_at !== null,
-            text: () => t('crud.restore'),
-            onClick: ({ row }, proxy: MaProTableExpose) => {
-              msg.confirm(t('crud.restoreMessage')).then(async () => {
-                const response = await recovery([row.id])
-                if (response.code === ResultCode.SUCCESS) {
-                  msg.success(t('crud.restoreSuccess'))
-                  await proxy.refresh()
-                }
-              })
-            },
-          },
-          {
-            name: 'del',
-            show: ({ row }) => showBtn('tenantApp:tenantApp:delete', row),
-            icon: 'i-heroicons:trash',
-            text: () => t('crud.delete'),
-            onClick: ({ row }, proxy: MaProTableExpose) => {
-              if (row?.deleted_at !== null && showBtn('tenant:tenantApp:realDelete', row)) {
-                msg.delConfirm(t('crud.realDeleteDataMessage')).then(async () => {
-                  const response = await realDelete([row.id])
-                  if (response.code === ResultCode.SUCCESS) {
-                    msg.success(t('crud.delSuccess'))
-                    await proxy.refresh()
-                  }
-                })
-              }
-              else {
-                msg.delConfirm(t('crud.delDataMessage')).then(async () => {
-                  const response = await deleteByIds([row.id])
-                  if (response.code === ResultCode.SUCCESS) {
-                    msg.success(t('crud.delSuccess'))
-                    await proxy.refresh()
-                  }
-                })
-              }
-            },
-          },
-        ],
-      },
-    },
   ]
 }

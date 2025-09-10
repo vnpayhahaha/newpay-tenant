@@ -33,7 +33,7 @@ export interface TenantAppVo {
 
 // 租户应用查询
 export function page(params: TenantAppVo): Promise<ResponseStruct<TenantAppVo[]>> {
-  return useHttp().get('/admin/tenant/tenant_app/list', { params })
+  return useHttp().get('/tenant/tenant/tenant_app/list', { params })
 }
 
 // 租户应用新增

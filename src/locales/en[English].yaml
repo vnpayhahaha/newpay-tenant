@@ -4,7 +4,7 @@ loginForm:
   codeLabel: Captcha
   usernameLabel: Account
   tenantIdLabel: Tenant ID
-  tenantIdPlaceholder: please input tenant id
+  tenant_idPlaceholder: please input tenant id
   codePlaceholder: please input captcha
   usernamePlaceholder: please input account
   passwordLabel: Password

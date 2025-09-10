@@ -87,7 +87,7 @@ async function submit() {
         v-model="form.tenant_id"
         class="!bg-white !text-black !ring-gray-2 !focus-ring-[rgb(var(--ui-primary))] !placeholder-stone-4"
         name="tenant_id"
-        :placeholder="t('loginForm.tenantIdPlaceholder')"
+        :placeholder="t('loginForm.tenant_idPlaceholder')"
         @blur="easyValidate"
       />
     </div>

@@ -57,6 +57,9 @@ const maDialog: UseDialogExpose = useDialog({
               proTableRef.value.refresh()
             }).catch((err: any) => {
               msg.alertError(err.response.data?.message)
+            }).finally(() => {
+              // 在异步操作完成后恢复按钮状态
+              okLoadingState(false)
             })
             break
           // 修改

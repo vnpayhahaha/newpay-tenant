@@ -371,6 +371,30 @@ export default function getTableColumns(
       },
     },
     {
+      label: () => t("collection_order.settlement_status"),
+      prop: "settlement_status",
+      minWidth: "120px",
+      cellRenderTo: {
+        name: "nmCellEnhance",
+        props: {
+          type: "tag",
+          propItem: "transaction_status",
+          api: () =>
+            new Promise((resolve) =>
+              resolve(selectStatus("transaction_record", "status_list"))
+            ),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value };
+            });
+          },
+          props: {
+            effect: "dark",
+          },
+        },
+      },
+    },
+    {
       label: () => t('collection_order.upstream_settlement_info'),
       prop: 'upstream_settlement_info',
       minWidth: '120px',

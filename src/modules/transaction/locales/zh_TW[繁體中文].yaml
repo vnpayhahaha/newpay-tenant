@@ -121,6 +121,7 @@ collection_order:
   cancel_info: 取消信息
   submitted_utr: 提交UTR
   cashier: 收银台
+  settlement_status: 结算状态
 disbursement_order:
   bankStatement: 银行账单
   index: 付款订单
@@ -186,6 +187,7 @@ disbursement_order:
   download: 下 载
   bank_disbursement_download: 银行账单
   downloadBankBillSelectBankAccountMsg: 请选择银行和银行账号后再继续
+  settlement_status: 结算状态
 bankStatement:
   index: 银行账单
   download: 下载

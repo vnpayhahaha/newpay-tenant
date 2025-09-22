@@ -121,6 +121,7 @@ collection_order:
   cancel_info: Cancel Info
   submitted_utr: Submitter UTR
   cashier: Cashier
+  settlement_status: Settlement Status
 disbursement_order:
   bankStatement: Bank Statement
   index: Payment Order
@@ -186,6 +187,7 @@ disbursement_order:
   download: Download
   downloadBankBillSelectBankAccountMsg: Please select a bank and a bank account before continuing
   bank_disbursement_download: Bank Statement
+  settlement_status: Settlement Status
 bankStatement:
   index: Bank Statement
   download: Download

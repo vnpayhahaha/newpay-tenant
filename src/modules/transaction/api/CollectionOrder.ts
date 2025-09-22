@@ -122,6 +122,17 @@ export interface CollectionOrderVo {
     username: string;
     nickname: string;
   } | null;
+  settlement_status: {
+    id: number,
+    transaction_no: string,
+    transaction_status: number,
+    transaction_type: number,
+    settlement_delay_mode: number,
+    settlement_delay_days: number,
+    expected_settlement_time: string,
+    failed_msg: string,
+    remark: string,
+  } | null;
 }
 
 // 收款订单查询

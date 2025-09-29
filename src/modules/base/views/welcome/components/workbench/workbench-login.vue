@@ -10,6 +10,7 @@
 <script setup lang="ts">
 import { graphic } from 'echarts'
 import { useEcharts } from '@/hooks/useEcharts.ts'
+import { statisticsLoginCountOfLast10Days } from '~/base/api/analysis'
 
 const echartsLogin = ref()
 
@@ -27,23 +28,33 @@ function graphicFactory(side) {
   }
 }
 
-const xAxis = ref([
-  '2022-07-06',
-  '2022-07-07',
-  '2022-07-08',
-  '2022-07-09',
-  '2022-07-10',
-  '2022-07-11',
-  '2022-07-12',
-  '2022-07-13',
-  '2022-07-14',
-  '2022-07-15',
-])
-const chartsData = ref([32, 56, 61, 89, 12, 33, 56, 92, 180, 25])
+const xAxis = ref<string[]>([])
+const chartsData = ref<number[]>([])
 const graphicElements = ref([
   graphicFactory({ left: '2.6%' }),
   graphicFactory({ right: 0 }),
 ])
+
+// 获取登录统计数据
+async function loadLoginData() {
+  try {
+    const response = await statisticsLoginCountOfLast10Days()
+    if (response.data) {
+      xAxis.value = response.data.xAxis
+      chartsData.value = response.data.chartData
+      // 更新图表配置
+      loginChartOptions.value.xAxis.data = xAxis.value
+      loginChartOptions.value.series[0].data = chartsData.value
+      // 重新渲染图表
+      const echartsInstance = useEcharts(echartsLogin)
+      if (echartsInstance) {
+        echartsInstance.setOption(loginChartOptions.value)
+      }
+    }
+  } catch (error) {
+    console.error('获取登录统计数据失败:', error)
+  }
+}
 
 const loginChartOptions = ref({
   grid: {
@@ -181,7 +192,16 @@ const loginChartOptions = ref({
   ],
 })
 
-useEcharts(echartsLogin).setOption(loginChartOptions.value)
+// 初始化图表
+const echartsInstance = useEcharts(echartsLogin)
+if (echartsInstance) {
+  echartsInstance.setOption(loginChartOptions.value)
+}
+
+// 组件挂载时加载数据
+onMounted(() => {
+  loadLoginData()
+})
 </script>
 
 <template>

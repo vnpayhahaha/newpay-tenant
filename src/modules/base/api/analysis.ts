@@ -1,5 +1,9 @@
 import type { PageList, ResponseStruct } from "#/global";
+import { te } from "element-plus/es/locale/index.mjs";
 
+const userStore = useUserStore()
+// 使用响应式用户信息
+const userInfo = ref({ ...userStore.getUserInfo() });
 export interface countVo {
   count: number;
   yesterday: number;
@@ -74,4 +78,19 @@ export function successOrderHourWeek(): Promise<
   ResponseStruct<contentPeriodVo>
 > {
   return useHttp().get("/tenant/analysis/successOrder/hourWeek");
+}
+
+interface LoginTimesVo {
+  xAxis: Array<string>;
+  chartData: Array<number>;
+
+}
+export function statisticsLoginCountOfLast10Days(): Promise<
+  ResponseStruct<LoginTimesVo>
+> {
+  return useHttp().get("/tenant/analysis/login_times", {
+    params: {
+      tenant_id: userInfo.value.tenant_id,
+    },
+  });
 }

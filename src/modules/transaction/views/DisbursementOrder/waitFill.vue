@@ -93,14 +93,7 @@ const options = ref<MaProTableOptions>({
   adaptionOffsetBottom: 161,
   header: {
     mainTitle: () => t('disbursement_order.index'),
-    subTitle: () => {
-      return (
-        `| ${
-          t('disbursement_order.query_total')
-        }: ${
-          responseTableData.value.total}`
-      )
-    },
+    subTitle: () =>  t('disbursement_order.status_labels.11'),
   },
   // 表格参数
   tableOptions: {

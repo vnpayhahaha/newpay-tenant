@@ -123,6 +123,15 @@ collection_order:
   submitted_utr: 提交UTR
   cashier: 收银台
   settlement_status: 结算状态
+  status_labels:
+    0: 已创建
+    10: 待支付
+    20: 已支付
+    30: 已挂起
+    40: 已失败
+    41: 已取消
+    43: 已失效
+    44: 已退款
 disbursement_order:
   bankStatement: 银行账单
   index: 付款订单
@@ -189,6 +198,18 @@ disbursement_order:
   download: 下 载
   bank_disbursement_download: 银行账单
   settlement_status: 结算状态
+  status_labels:
+    0: 创建中
+    1: 已创建
+    2: 已分配
+    10: 待支付
+    11: 支付中
+    20: 已支付
+    30: 已挂起
+    40: 已失败
+    41: 已取消
+    43: 已失效
+    44: 已退款
 bankStatement:
   index: 银行账单
   download: 下载账单

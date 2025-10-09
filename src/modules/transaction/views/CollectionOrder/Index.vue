@@ -94,6 +94,7 @@ const options = ref<MaProTableOptions>({
   adaptionOffsetBottom: 161,
   header: {
     mainTitle: () => t('collection_order.index'),
+    subTitle: () => t('collection_order.all'),
   },
   // 表格参数
   tableOptions: {
